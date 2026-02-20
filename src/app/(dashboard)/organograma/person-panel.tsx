@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { Avatar } from '@/components/ui/avatar'
 import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
@@ -312,11 +311,10 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                   </h4>
                   <div className="space-y-3">
                     {detalhes.projetos.map((projeto) => (
-                      <Link
+                      <div
                         key={projeto.id}
-                        href={`/projetos/${projeto.id}`}
                         className={cn(
-                          'block p-3 rounded-lg transition-colors',
+                          'p-3 rounded-lg transition-colors',
                           'bg-[var(--muted)] hover:bg-[var(--border)]'
                         )}
                       >
@@ -349,7 +347,7 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                             />
                           </div>
                         )}
-                      </Link>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -363,11 +361,10 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                   </h4>
                   <div className="space-y-3">
                     {detalhes.processos.map((processo) => (
-                      <Link
+                      <div
                         key={processo.id}
-                        href={`/processos/${processo.id}`}
                         className={cn(
-                          'block p-3 rounded-lg transition-colors',
+                          'p-3 rounded-lg transition-colors',
                           'bg-[var(--muted)] hover:bg-[var(--border)]'
                         )}
                       >
@@ -403,7 +400,7 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                             )}
                           </div>
                         )}
-                      </Link>
+                      </div>
                     ))}
                   </div>
                 </div>
