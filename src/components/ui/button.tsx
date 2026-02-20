@@ -7,11 +7,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants = {
-  primary: 'bg-accent-600 text-white hover:bg-accent-700 focus:ring-accent-500',
-  secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500',
-  outline: 'border-2 border-accent-600 text-accent-600 hover:bg-accent-50 focus:ring-accent-500',
-  ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-500',
-  danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+  primary: 'bg-accent-600 text-white hover:bg-accent-700 dark:bg-accent-500 dark:hover:bg-accent-600 focus:ring-accent-500',
+  secondary: 'bg-[var(--muted)] text-[var(--foreground)] hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-gray-500',
+  outline: 'border-2 border-accent-600 text-accent-600 hover:bg-accent-50 dark:hover:bg-accent-900/30 focus:ring-accent-500',
+  ghost: 'text-[var(--muted-foreground)] hover:bg-[var(--muted)] focus:ring-gray-500',
+  danger: 'bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 focus:ring-red-500',
 }
 
 const sizes = {
@@ -27,7 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={cn(
           'font-medium rounded-lg transition-colors inline-flex items-center justify-center',
-          'focus:outline-none focus:ring-2 focus:ring-offset-2',
+          'focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           variants[variant],
           sizes[size],

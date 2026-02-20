@@ -115,7 +115,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
           key={item.href}
           className={cn(
             'flex items-center gap-3 px-3 py-2.5 rounded-lg',
-            'text-gray-400 dark:text-gray-600 cursor-not-allowed',
+            'text-[var(--muted-foreground)] opacity-50 cursor-not-allowed',
             !isExpanded && !isMobileOpen && 'justify-center px-2'
           )}
           title={!isExpanded && !isMobileOpen ? item.label : undefined}
@@ -125,7 +125,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
             <span className="text-sm font-medium whitespace-nowrap">{item.label}</span>
           )}
           {(isExpanded || isMobileOpen) && (
-            <span className="ml-auto text-xs bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
+            <span className="ml-auto text-xs bg-[var(--muted)] px-2 py-0.5 rounded">
               em breve
             </span>
           )}
@@ -142,7 +142,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
           'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
           isActive
             ? 'bg-accent-50 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400'
-            : 'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
+            : 'text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]',
           !isExpanded && !isMobileOpen && 'justify-center px-2'
         )}
         title={!isExpanded && !isMobileOpen ? item.label : undefined}
@@ -168,9 +168,9 @@ export function Sidebar({ userEmail }: SidebarProps) {
       {/* Mobile hamburger button */}
       <button
         onClick={() => setIsMobileOpen(true)}
-        className="fixed top-4 left-4 z-50 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md md:hidden"
+        className="fixed top-4 left-4 z-50 p-2 bg-[var(--card)] rounded-lg shadow-md md:hidden text-[var(--foreground)]"
       >
-        <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
@@ -178,7 +178,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed left-0 top-0 h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-40',
+          'fixed left-0 top-0 h-full bg-[var(--card)] border-r border-[var(--border)] z-40',
           'transition-all duration-200 flex flex-col',
           'hidden md:flex',
           isExpanded ? 'w-60' : 'w-16',
@@ -187,7 +187,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
         )}
       >
         {/* Logo */}
-        <div className="p-4 border-b border-gray-100 dark:border-gray-800">
+        <div className="p-4 border-b border-[var(--border)]">
           <Link
             href="/organograma"
             className="flex items-center gap-3"
@@ -197,7 +197,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
               <span className="text-white font-bold text-sm">O</span>
             </div>
             {(isExpanded || isMobileOpen) && (
-              <span className="font-semibold text-text-primary dark:text-white whitespace-nowrap">
+              <span className="font-semibold text-[var(--foreground)] whitespace-nowrap">
                 Organograma
               </span>
             )}
@@ -228,10 +228,10 @@ export function Sidebar({ userEmail }: SidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="p-2 border-t border-gray-100 dark:border-gray-800 space-y-1">
+        <div className="p-2 border-t border-[var(--border)] space-y-1">
           {/* User info */}
           {(isExpanded || isMobileOpen) && userEmail && (
-            <div className="px-3 py-2 text-xs text-text-muted dark:text-gray-500 truncate">
+            <div className="px-3 py-2 text-xs text-[var(--muted-foreground)] truncate">
               {userEmail}
             </div>
           )}
@@ -244,7 +244,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
               'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
               pathname === '/perfil'
                 ? 'bg-accent-50 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400'
-                : 'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
+                : 'text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]',
               !isExpanded && !isMobileOpen && 'justify-center px-2'
             )}
             title={!isExpanded && !isMobileOpen ? 'Meu Perfil' : undefined}
@@ -266,7 +266,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
               type="submit"
               className={cn(
                 'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-                'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
+                'text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]',
                 !isExpanded && !isMobileOpen && 'justify-center px-2'
               )}
               title={!isExpanded && !isMobileOpen ? 'Sair' : undefined}
@@ -286,7 +286,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
             onClick={toggleSidebar}
             className={cn(
               'hidden md:flex w-full items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-              'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
+              'text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]',
               !isExpanded && 'justify-center px-2'
             )}
             title={isExpanded ? 'Recolher' : 'Expandir'}
@@ -311,7 +311,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
       {isMobileOpen && (
         <button
           onClick={() => setIsMobileOpen(false)}
-          className="fixed top-4 right-4 z-50 p-2 bg-white rounded-lg shadow-md md:hidden"
+          className="fixed top-4 right-4 z-50 p-2 bg-[var(--card)] rounded-lg shadow-md md:hidden text-[var(--foreground)]"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

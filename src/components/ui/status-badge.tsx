@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 interface StatusBadgeProps {
-  icon: string
+  icon?: string
   count: number
   color?: 'accent' | 'blue' | 'warning' | 'error' | 'success'
   className?: string
@@ -26,7 +26,11 @@ export function StatusBadge({ icon, count, color = 'accent', className }: Status
         className
       )}
     >
-      <span>{icon}</span>
+      {icon && (
+        <span className="material-symbols-outlined text-sm leading-none">
+          {icon}
+        </span>
+      )}
       <span>{count}</span>
     </span>
   )

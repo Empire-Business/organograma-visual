@@ -118,21 +118,29 @@ export function PersonFormModal({
       <div
         className={cn(
           'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-          'w-full max-w-md bg-white rounded-2xl shadow-panel z-50',
+          'w-full max-w-md rounded-2xl shadow-panel z-50',
           'transition-all duration-300',
+          // Dark mode support
+          'bg-[var(--card)]',
           isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-100">
-          <h2 className="font-semibold text-text-primary">
+        <div className={cn(
+          'flex items-center justify-between p-4 border-b',
+          'border-[var(--border)]'
+        )}>
+          <h2 className="font-semibold text-[var(--foreground)]">
             {pessoa ? 'Editar Pessoa' : 'Nova Pessoa'}
           </h2>
           <button
             onClick={handleClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className={cn(
+              'p-2 rounded-lg transition-colors',
+              'hover:bg-[var(--muted)] text-[var(--muted-foreground)]'
+            )}
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -153,7 +161,7 @@ export function PersonFormModal({
 
           {/* Nome */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Nome completo *
             </label>
             <Input
@@ -166,13 +174,16 @@ export function PersonFormModal({
 
           {/* Cargo */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Cargo *
             </label>
             <select
               value={formData.cargo_id}
               onChange={(e) => setFormData(prev => ({ ...prev, cargo_id: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+              className={cn(
+                'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent',
+                'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]'
+              )}
               required
             >
               <option value="">Selecione um cargo</option>
@@ -186,13 +197,16 @@ export function PersonFormModal({
 
           {/* Reports to */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Reporta para
             </label>
             <select
               value={formData.reports_to}
               onChange={(e) => setFormData(prev => ({ ...prev, reports_to: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+              className={cn(
+                'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent',
+                'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]'
+              )}
             >
               <option value="">Ninguém (topo da hierarquia)</option>
               {possiveisGerentes.map(p => (
@@ -205,7 +219,7 @@ export function PersonFormModal({
 
           {/* Data início */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Data de início
             </label>
             <Input
@@ -217,7 +231,7 @@ export function PersonFormModal({
 
           {/* Erro */}
           {error && (
-            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg">
+            <div className="p-3 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm rounded-lg">
               {error}
             </div>
           )}

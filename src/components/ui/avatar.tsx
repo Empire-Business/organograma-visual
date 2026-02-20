@@ -15,13 +15,13 @@ const sizes = {
   xl: 'w-24 h-24 text-2xl',
 }
 
-// Cores de fundo baseadas no nome para consistência
+// Cores de fundo baseadas no nome para consistencia
 const avatarColors = [
   'bg-accent-500',
   'bg-blue-500',
-  'bg-green-500',
-  'bg-orange-500',
-  'bg-pink-500',
+  'bg-emerald-500',
+  'bg-amber-500',
+  'bg-rose-500',
   'bg-teal-500',
   'bg-indigo-500',
   'bg-cyan-500',
@@ -50,7 +50,7 @@ export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
         src={src}
         alt={name}
         className={cn(
-          'rounded-full object-cover',
+          'rounded-full object-cover ring-2 ring-[var(--card)]',
           sizes[size],
           className
         )}
@@ -62,6 +62,7 @@ export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
     <div
       className={cn(
         'rounded-full flex items-center justify-center font-semibold text-white',
+        'ring-2 ring-[var(--card)]',
         sizes[size],
         bgColor,
         className

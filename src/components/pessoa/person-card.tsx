@@ -30,51 +30,54 @@ export function PersonCard({
     <div
       onClick={onClick}
       className={cn(
-        'w-[180px] sm:w-[200px] p-3 sm:p-4 bg-white rounded-xl shadow-card',
+        'w-[180px] sm:w-[200px] p-3 sm:p-4 rounded-xl shadow-card',
         'cursor-pointer transition-all duration-200',
         'hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98]',
         'border-2 animate-fade-in',
-        isSelected ? 'border-accent-500' : 'border-transparent'
+        // Dark mode support with CSS variables
+        'bg-[var(--card)] border-transparent',
+        'dark:hover:bg-[var(--muted)]',
+        isSelected ? 'border-accent-500 ring-2 ring-accent-500/20' : 'hover:border-[var(--border)]'
       )}
     >
       {/* Header com Avatar e Info */}
       <div className="flex items-start gap-3">
         <Avatar src={avatarUrl} name={nome} size="md" />
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-text-primary truncate">
+          <p className="text-sm font-semibold text-[var(--foreground)] truncate">
             {nome}
           </p>
-          <p className="text-xs text-text-secondary truncate">
+          <p className="text-xs text-[var(--muted-foreground)] truncate">
             {cargo}
           </p>
         </div>
       </div>
 
       {/* Status Badges */}
-      <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
+      <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[var(--border)]">
         {projetosAtivos > 0 && (
           <StatusBadge
-            icon="📁"
+            icon="folder"
             count={projetosAtivos}
             color="accent"
           />
         )}
         {tarefasPendentes > 0 && (
           <StatusBadge
-            icon="📋"
+            icon="assignment"
             count={tarefasPendentes}
             color="blue"
           />
         )}
         {alertas > 0 && (
           <StatusBadge
-            icon="⚠️"
+            icon="warning"
             count={alertas}
             color="warning"
           />
         )}
         {projetosAtivos === 0 && tarefasPendentes === 0 && alertas === 0 && (
-          <span className="text-xs text-text-muted">Sem atividades</span>
+          <span className="text-xs text-[var(--muted-foreground)]">Sem atividades</span>
         )}
       </div>
     </div>

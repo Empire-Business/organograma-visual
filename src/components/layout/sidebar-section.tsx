@@ -51,7 +51,7 @@ export function SidebarSection({
       <button
         type="button"
         onClick={toggleSection}
-        className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-text-muted dark:text-gray-500 uppercase tracking-wider hover:text-text-secondary dark:hover:text-gray-400 transition-colors"
+        className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wider hover:text-[var(--foreground)] transition-colors"
       >
         <span>{title}</span>
         <svg
