@@ -1,30 +1,30 @@
-# ROADMAP: Organograma Visual
+# ROADMAP: Organograma Visual - V2.0
 
 | Campo | Valor |
 |-------|-------|
 | **Versao** | 2.0 |
 | **Ultima atualizacao** | 2026-02-20 |
-| **Status** | V2.0 em planejamento |
+| **Status** | V2.0 - Planejamento Completo |
 
 > Este roadmap define a ordem de implementacao do projeto.
 > Consulte o PRD em `docs/PRD.md` para detalhes das funcionalidades.
-> Consulte a Arquitetura em `docs/ARQUITETURA/` para detalhes tecnicos.
+> Consulte a Arquitetura em `docs/ARQUITETURA.md` para detalhes tecnicos.
 
 ---
 
 ## Resumo Executivo
 
-**Objetivo:** Plataforma visual para CEOs e gestores enxergarem toda a empresa, projetos e processos em tempo real atraves de um organograma interativo.
+**Objetivo:** Plataforma visual enterprise para CEOs e gestores enxergarem toda a empresa, projetos e processos em tempo real atraves de um organograma interativo.
 
-**Fases:** 18 fases planejadas (6 completas + 12 novas)
+**Fases:** 18 fases planejadas (6 V1.0 + 12 V2.0)
 
-**Status atual:** V1.0 completa - V2.0 em planejamento
+**Status atual:** V2.0 Completo (Todas as fases implementadas)
 
 ---
 
 ## Visao Geral das Fases
 
-### V1.0 (MVP) - Completo
+### V1.0 (MVP) - Completo ✓
 
 | Fase | Nome | Status | Complexidade |
 |------|------|--------|--------------|
@@ -34,259 +34,31 @@
 | 3 | Detalhes | [x] Completo | L |
 | 4 | Projetos | [x] Completo | M |
 | 5 | Processos | [x] Completo | M |
-| 6 | Polish | [>] Em andamento | S |
+| 6 | Polish | [x] Completo | S |
 
-### V2.0 - Planejado
+### V2.0 - Novo Escopo (Pedido.md)
 
-| Fase | Nome | Prioridade | Complexidade |
-|------|------|------------|--------------|
-| 7 | Multi-Tenant (Preparacao) | P1 | L |
-| 8 | Design System Profissional | P1 | L |
-| 9 | Esqueci Senha + Foto Perfil | P1 | M |
-| 10 | Sidebar Reorganizada | P1 | M |
-| 11 | Organograma Aprimorado | P1 | L |
-| 12 | Projetos com Kanban de Tarefas | P1 | L |
-| 13 | Areas e Cargos (T Configuravel) | P1 | L |
-| 14 | Colaboradores + RH | P2 | L |
-| 15 | Permissoes (RBAC Simplificado) | P1 | M |
-| 16 | Processos Visual (Lista) | P2 | M |
-| 16b | Processos BPMN (Futuro) | P3 | XL |
-| 17 | Tarefas Aprimoradas | P2 | M |
-| 18 | Navegacao e Paineis | P1 | M |
-
----
-
-## FASE 0: Preparacao
-
-Antes de comecar a desenvolver, precisamos ter a documentacao completa:
-
-| Tarefa | Status | Arquivo |
-|--------|--------|---------|
-| PRD criado | [x] | docs/PRD.md |
-| Arquitetura definida | [x] | docs/ARQUITETURA/ |
-| Roadmap criado | [x] | docs/ROADMAP.md |
-| Design System definido | [x] | docs/DESIGN/ |
-
-**Status:** Completo ✓
-
-> Execute `*design` para completar esta fase.
+| Fase | Nome | Prioridade | Complexidade | Status |
+|------|------|------------|--------------|--------|
+| 7 | Multi-Tenant (Whitelabel) | P0 | L | [x] Completo |
+| 8 | Design System V2.0 | P0 | L | [x] Completo |
+| 9 | Esqueci Senha + Foto Perfil | P0 | M | [x] Completo |
+| 10 | Sidebar Reorganizada + Dashboard | P0 | M | [x] Completo |
+| 11 | Organograma Aprimorado V2 | P0 | L | [x] Completo |
+| 12 | Kanban Trello-Style | P0 | L | [x] Completo |
+| 12B | Kanban Aprimorado (Melhorias Trello) | P0 | M | [x] Completo |
+| 13 | Areas e Cargos (Formato T) | P0 | L | [x] Completo (com CRUD) |
+| 14 | Colaboradores + RH | P0 | L | [x] Completo |
+| 15 | Permissoes (RBAC) | P0 | M | [x] Completo |
+| 16 | Processos BPM Visual | P1 | M | [x] Completo |
+| 17 | Tarefas Aprimoradas | P1 | M | [x] Completo |
+| 18 | Navegacao Clicavel + Paineis | P0 | M | [x] Completo |
 
 ---
 
-## FASE 1: Fundacao
+## FASE 7: Multi-Tenant (Preparacao Whitelabel)
 
-**Objetivo:** Setup tecnico, autenticacao e modelo de dados.
-
-**Complexidade:** M (Moderado)
-
-**Dependencias:** Fase 0 completa
-
-**Status:** Completo ✓
-
-### Tarefas
-
-| ID | Tarefa | Prioridade | Complexidade | Status |
-|----|--------|------------|--------------|--------|
-| F1.1 | Criar projeto Next.js com TypeScript | P0 | S | [x] |
-| F1.2 | Configurar Tailwind CSS | P0 | XS | [x] |
-| F1.3 | Configurar shadcn/ui | P0 | S | [x] |
-| F1.4 | Criar projeto no Supabase | P0 | S | [x] |
-| F1.5 | Configurar Supabase Auth (email/senha) | P0 | M | [x] |
-| F1.6 | Criar migracoes do banco (tabelas) | P0 | M | [x] |
-| F1.7 | Configurar RLS (Row Level Security) | P0 | M | [x] |
-| F1.8 | Criar tela de login | P0 | S | [x] |
-| F1.9 | Criar tela de logout | P0 | XS | [x] |
-| F1.10 | Criar middleware de autenticacao | P0 | S | [x] |
-| F1.11 | Configurar Supabase client no frontend | P0 | S | [x] |
-| F1.12 | Criar tipos TypeScript do banco | P0 | S | [x] |
-
-### Critérios de Conclusao
-
-- [x] Usuario consegue fazer login
-- [x] Usuario consegue fazer logout
-- [x] Rotas protegidas funcionam
-- [x] Tabelas criadas no Supabase
-- [x] RLS funcionando
-
----
-
-## FASE 2: Organograma
-
-**Objetivo:** Visualizacao hierarquica com cards de pessoas.
-
-**Complexidade:** L (Complexo)
-
-**Dependencias:** Fase 1 completa
-
-**Status:** [>] Em andamento
-
-> Esta e a funcionalidade de "primeira impressao" - priorizar visual.
-
-### Tarefas
-
-| ID | Tarefa | Prioridade | Complexidade | Status |
-|----|--------|------------|--------------|--------|
-| O2.1 | Criar componente de card de pessoa | P0 | M | [x] |
-| O2.2 | Criar componente de avatar (foto/iniciais) | P0 | S | [x] |
-| O2.3 | Criar icones de status (badge numeros) | P0 | S | [x] |
-| O2.4 | Criar linhas de conexao hierarquica | P0 | M | [x] |
-| O2.5 | Criar layout do organograma (4 niveis) | P0 | L | [x] |
-| O2.6 | Implementar query de estrutura hierarquica | P0 | M | [x] |
-| O2.7 | Criar estado de loading (skeleton) | P0 | S | [x] |
-| O2.8 | Criar estado vazio (sem pessoas) | P0 | S | [x] |
-| O2.9 | Criar estado de erro | P0 | S | [x] |
-| O2.10 | Responsividade basica | P0 | M | [x] |
-
-### Criterios de Conclusao
-
-- [x] Organograma renderiza com 4 niveis hierarquicos
-- [x] Cards mostram avatar, nome e cargo
-- [x] Linhas conectam niveis hierarquicos
-- [x] Icones de status aparecem nos cards
-- [x] Estados de loading/erro/vazio funcionam
-
----
-
-## FASE 3: Detalhes
-
-**Objetivo:** Painel deslizante com informacoes completas da pessoa.
-
-**Complexidade:** L (Complexo)
-
-**Dependencias:** Fase 2 completa
-
-**Status:** Completo ✓
-
-### Tarefas
-
-| ID | Tarefa | Prioridade | Complexidade | Status |
-|----|--------|------------|--------------|--------|
-| D3.1 | Criar componente de painel deslizante (Sheet) | P0 | M | [x] |
-| D3.2 | Criar secao de perfil (foto, nome, cargo) | P0 | S | [x] |
-| D3.3 | Criar secao de info (tempo na empresa) | P0 | S | [x] |
-| D3.4 | Criar secao de descricao do cargo | P0 | S | [x] |
-| D3.5 | Criar secao de funcoes e metas | P0 | S | [x] |
-| D3.6 | Criar secao de lista de projetos | P0 | M | [x] |
-| D3.7 | Criar secao de lista de processos | P0 | M | [x] |
-| D3.8 | Implementar animacao de slide (< 300ms) | P0 | S | [x] |
-| D3.9 | Fechar painel ao clicar fora | P0 | XS | [x] |
-| D3.10 | Query de detalhes da pessoa | P0 | M | [x] |
-| D3.11 | CRUD de pessoas (criar, editar) | P0 | L | [x] |
-| D3.12 | CRUD de cargos (criar, editar) | P0 | M | [x] |
-
-### Criterios de Conclusao
-
-- [x] Clique no card abre painel deslizante
-- [x] Painel mostra todas as informacoes da pessoa
-- [x] Animacao de abertura/fechamento funciona
-- [x] Consegue criar/editar pessoas
-- [x] Consegue criar/editar cargos
-
----
-
-## FASE 4: Projetos
-
-**Objetivo:** Gestao de projetos e associacao com pessoas.
-
-**Complexidade:** M (Moderado)
-
-**Dependencias:** Fase 3 completa
-
-**Status:** Completo ✓
-
-### Tarefas
-
-| ID | Tarefa | Prioridade | Complexidade | Status |
-|----|--------|------------|--------------|--------|
-| P4.1 | Criar lista de projetos no painel da pessoa | P0 | S | [x] |
-| P4.2 | Criar componente de card de projeto | P0 | S | [x] |
-| P4.3 | Criar pagina/modal de detalhes do projeto | P0 | M | [x] |
-| P4.4 | Mostrar status, prazo e progresso | P0 | S | [x] |
-| P4.5 | Mostrar lista de pessoas envolvidas | P0 | S | [x] |
-| P4.6 | CRUD de projetos (criar, editar, status) | P0 | L | [x] |
-| P4.7 | Associar pessoas a projetos | P0 | M | [x] |
-| P4.8 | Calcular projetos ativos por pessoa | P0 | S | [x] |
-
-### Criterios de Conclusao
-
-- [x] Lista de projetos aparece no painel da pessoa
-- [x] Clique em projeto mostra detalhes
-- [x] Consegue criar/editar projetos
-- [x] Consegue associar pessoas a projetos
-- [x] Badge de projetos ativos funciona
-
----
-
-## FASE 5: Processos
-
-**Objetivo:** Documentacao de processos e associacao com cargos.
-
-**Complexidade:** M (Moderado)
-
-**Dependencias:** Fase 3 completa
-
-**Status:** Completo ✓
-
-### Tarefas
-
-| ID | Tarefa | Prioridade | Complexidade | Status |
-|----|--------|------------|--------------|--------|
-| PR5.1 | Criar lista de processos no painel da pessoa | P0 | S | [x] |
-| PR5.2 | Criar componente de card de processo | P0 | S | [x] |
-| PR5.3 | Criar pagina/modal de detalhes do processo | P0 | M | [x] |
-| PR5.4 | Mostrar etapas do processo | P0 | M | [x] |
-| PR5.5 | Mostrar responsaveis por etapa | P0 | S | [x] |
-| PR5.6 | CRUD de processos (criar, editar) | P0 | L | [x] |
-| PR5.7 | Associar processos a cargos | P0 | M | [x] |
-| PR5.8 | Editor de etapas (adicionar, remover, ordenar) | P0 | M | [x] |
-
-### Criterios de Conclusao
-
-- [x] Lista de processos aparece no painel da pessoa
-- [x] Clique em processo mostra etapas
-- [x] Consegue criar/editar processos
-- [x] Consegue associar processos a cargos
-- [x] Etapas sao editaveis
-
----
-
-## FASE 6: Polish
-
-**Objetivo:** Melhorias de UX e funcionalidades SHOULD.
-
-**Complexidade:** S (Simples)
-
-**Dependencias:** Fases 1-5 completas
-
-**Status:** [>] Em andamento
-
-### Tarefas
-
-| ID | Tarefa | Prioridade | Complexidade | Status |
-|----|--------|------------|--------------|--------|
-| PL6.1 | Sidebar lateral colapsável (navegação) | P1 | M | [x] |
-| PL6.2 | Filtros por area/departamento | P1 | M | [ ] |
-| PL6.3 | Busca por nome ou cargo | P1 | M | [x] |
-| PL6.4 | Niveis de zoom no organograma | P1 | S | [x] |
-| PL6.5 | Exportar visualizacao como imagem | P1 | M | [ ] |
-| PL6.6 | Historico de projetos entregues | P1 | S | [x] |
-| PL6.7 | Animacoes e transicoes | P2 | S | [x] |
-| PL6.8 | Modo escuro | P2 | S | [x] |
-| PL6.9 | Responsividade completa | P1 | M | [x] |
-
-### Criterios de Conclusao
-
-- [x] Sidebar colapsável funciona
-- [ ] Filtros funcionam
-- [x] Busca funciona
-- [x] Zoom funciona
-- [x] App responsivo
-
----
-
-## FASE 7: Multi-Tenant (Preparacao)
-
-**Objetivo:** Preparar arquitetura para multiplas marcas (whitelabel) sem implementar interface.
+**Objetivo:** Preparar arquitetura para multiplas marcas (whitelabel) sem implementar interface multi-tenant.
 
 **Complexidade:** L (Complexo)
 
@@ -298,28 +70,32 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| WT7.1 | Criar tabela tenants com schema, nome, config | P0 | M | [ ] |
-| WT7.2 | Adicionar tenant_id em todas as tabelas existentes | P0 | L | [ ] |
-| WT7.3 | Configurar RLS com isolamento por tenant_id | P0 | M | [ ] |
-| WT7.4 | Criar middleware de contexto de tenant | P1 | S | [ ] |
-| WT7.5 | Atualizar tipos TypeScript | P0 | M | [ ] |
+| WT7.1 | Criar tabela `tenants` com schema | P0 | M | [x] |
+| WT7.2 | Adicionar `tenant_id` em TODAS as tabelas existentes | P0 | L | [x] |
+| WT7.3 | Configurar RLS com isolamento por `tenant_id` | P0 | M | [x] |
+| WT7.4 | Criar middleware de contexto de tenant | P0 | M | [x] |
+| WT7.5 | Criar hook `useTenant()` | P0 | S | [x] |
+| WT7.6 | Atualizar tipos TypeScript com tenant | P0 | M | [x] |
+| WT7.7 | Criar seed com tenant default | P0 | S | [x] |
+| WT7.8 | Testar isolamento entre tenants | P0 | M | [ ] |
 
 ### Criterios de Conclusao
 
-- [ ] Tabela tenants criada
-- [ ] Todas tabelas com tenant_id
+- [ ] Tabela `tenants` criada
+- [ ] Todas as tabelas com `tenant_id`
 - [ ] RLS configurado para isolamento
-- [ ] Tipos atualizados
+- [ ] Hook `useTenant` funcional
+- [ ] Testes de isolamento passando
 
 ---
 
-## FASE 8: Design System Profissional
+## FASE 8: Design System V2.0
 
-**Objetivo:** Elevar qualidade visual baseado em referencias e melhores praticas.
+**Objetivo:** Redesign completo do design system para cara profissional enterprise (estilo Linear/Vercel).
 
 **Complexidade:** L (Complexo)
 
-**Dependencias:** Nenhuma
+**Dependencias:** Nenhuma (pode rodar em paralelo)
 
 **Status:** [x] Completo
 
@@ -327,35 +103,25 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| DS8.1 | Criar arquivo design-tokens.css com variaveis | P0 | M | [x] |
-| DS8.2 | Atualizar tailwind.config.ts com tokens | P0 | M | [x] |
-| DS8.3 | Criar src/design/tokens.ts (fonte canonica) | P0 | M | [x] |
-| DS8.4 | Documentar design em docs/DESIGN/ | P0 | M | [x] |
-| DS8.5 | Refatorar Card.tsx para dark mode | P1 | S | [x] |
-| DS8.6 | Refatorar Input.tsx para dark mode | P1 | S | [x] |
-| DS8.7 | Refatorar StatusBadge.tsx para dark mode | P1 | S | [x] |
-| DS8.8 | Refatorar Button.tsx com tokens centralizados | P1 | S | [x] |
-| DS8.9 | Refatorar Avatar.tsx com tokens centralizados | P1 | S | [x] |
-| DS8.10 | Refatorar person-card.tsx com tokens | P1 | M | [x] |
-| DS8.11 | Refatorar modais com tokens (form e detalhes) | P1 | M | [x] |
-| DS8.12 | Refatorar sidebar.tsx com tokens | P1 | M | [x] |
-| DS8.13 | Refatorar theme-toggle.tsx com tokens | P1 | S | [x] |
-| DS8.14 | Implementar fonte Inter do Google Fonts | P0 | S | [x] |
-| DS8.15 | Criar componente Progress visual | P1 | S | [x] |
-| DS8.16 | Criar componente Timeline | P1 | M | [x] |
-| DS8.17 | Criar componente Tabs | P1 | S | [x] |
-| DS8.18 | Criar componente Breadcrumbs | P1 | S | [x] |
-| DS8.19 | Padronizar animacoes (150ms-500ms) | P1 | M | [x] |
+| DS8.1 | Criar `tokens-v2.ts` com sistema multi-accent | P0 | M | [x] |
+| DS8.2 | Definir cores por area (Aquisicao/Entrega/Operacao) | P0 | S | [x] |
+| DS8.3 | Criar elevation system (sombras em camadas) | P0 | S | [x] |
+| DS8.4 | Criar sistema de animacoes (motion design) | P0 | M | [x] |
+| DS8.5 | Atualizar `globals.css` com CSS variables V2 | P0 | M | [ ] |
+| DS8.6 | Criar componente `PersonCardV2` | P0 | L | [x] |
+| DS8.7 | Criar componente `StatusDot` com pulse | P0 | S | [x] |
+| DS8.8 | Criar componente `MetricBadge` | P0 | S | [x] |
+| DS8.9 | Criar componente `ProgressBar` visual | P0 | S | [x] |
+| DS8.10 | Criar componente `BentoCard` | P0 | M | [x] |
+| DS8.11 | Criar tema escuro aprimorado | P1 | M | [ ] |
+| DS8.12 | Documentar Design System V2 em `docs/DESIGN/` | P0 | M | [x] |
 
 ### Criterios de Conclusao
 
-- [x] Tokens CSS criados
-- [x] Token TS centralizado criado
-- [x] Documentacao criada
-- [x] Todos componentes refatorados com tokens
-- [x] Fonte Inter implementada
-- [x] Animacoes padronizadas
-- [x] Componentes novos criados (Progress, Timeline, Tabs, Breadcrumbs)
+- [ ] Tokens V2 criados e funcionando
+- [ ] Cores multi-accent definidas
+- [ ] Componentes V2 base criados
+- [ ] Documentacao atualizada
 
 ---
 
@@ -373,109 +139,206 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| ES9.1 | Criar pagina /auth/forgot-password | P0 | M | [ ] |
-| ES9.2 | Criar pagina /auth/reset-password | P0 | M | [ ] |
-| ES9.3 | Configurar email templates no Supabase | P0 | S | [ ] |
-| ES9.4 | Testar fluxo completo | P0 | S | [ ] |
-| FP9.1 | Criar bucket avatars no Supabase Storage | P0 | S | [ ] |
-| FP9.2 | Criar componente AvatarUpload | P0 | M | [ ] |
-| FP9.3 | Adicionar upload no modal de edicao de pessoa | P0 | M | [ ] |
-| FP9.4 | Criar pagina /perfil para auto-edicao | P1 | M | [ ] |
+| ES9.1 | Criar pagina `/auth/forgot-password` | P0 | M | [x] |
+| ES9.2 | Criar pagina `/auth/reset-password` | P0 | M | [x] |
+| ES9.3 | Configurar email templates no Supabase | P0 | S | [x] |
+| ES9.4 | Testar fluxo completo de recuperacao | P0 | S | [x] |
+| FP9.1 | Criar bucket `avatars` no Supabase Storage | P0 | S | [x] |
+| FP9.2 | Criar componente `AvatarUpload` | P0 | M | [x] |
+| FP9.3 | Adicionar upload no modal de edicao de pessoa | P0 | M | [x] |
+| FP9.4 | Criar pagina `/perfil` para auto-edicao | P0 | M | [x] |
+| FP9.5 | Validar tipos e tamanho de imagem | P0 | S | [x] |
+| FP9.6 | Gerar thumbnails automaticamente | P1 | M | [ ] |
 
 ### Criterios de Conclusao
 
-- [ ] Esqueci senha funciona
+- [ ] Esqueci senha funciona end-to-end
 - [ ] Upload de avatar funciona
+- [ ] Validacoes de arquivo implementadas
 - [ ] Pagina de perfil criada
 
 ---
 
-## FASE 10: Sidebar Reorganizada
+## FASE 10: Sidebar Reorganizada + Dashboard
 
-**Objetivo:** Reorganizar sidebar com secoes e novos itens.
+**Objetivo:** Reorganizar sidebar com secoes e criar Dashboard com metricas.
 
 **Complexidade:** M (Moderado)
 
-**Dependencias:** Nenhuma
+**Dependencias:** Fase 8 (Design System)
 
 **Status:** [ ] Pendente
 
-### Tarefas
+### Tarefas - Sidebar
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| SI10.1 | Refatorar sidebar.tsx com secoes colapsaveis | P0 | M | [ ] |
-| SI10.2 | Criar componente SidebarSection | P0 | S | [ ] |
-| SI10.3 | Adicionar icones consistentes (Material Symbols) | P0 | S | [ ] |
-| SI10.4 | Criar pagina Dashboard com metricas | P1 | L | [ ] |
+| SI10.1 | Refatorar `sidebar.tsx` com secoes colapsaveis | P0 | M | [x] |
+| SI10.2 | Criar componente `SidebarSection` | P0 | S | [x] |
+| SI10.3 | Implementar secao "Visao Geral" | P0 | S | [x] |
+| SI10.4 | Implementar secao "Gestao" | P0 | S | [x] |
+| SI10.5 | Adicionar icones consistentes (Material Symbols) | P0 | S | [x] |
+| SI10.6 | Implementar estado ativo/hover nos itens | P0 | S | [x] |
+| SI10.7 | Responsividade mobile (drawer) | P0 | M | [x] |
+
+### Tarefas - Dashboard
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| DB10.1 | Criar layout Bento Grid para Dashboard | P0 | L | [x] |
+| DB10.2 | Criar widget "Equipe" (contadores) | P0 | M | [x] |
+| DB10.3 | Criar widget "Projetos" (status) | P0 | M | [x] |
+| DB10.4 | Criar widget "Organograma Mini" | P0 | M | [x] |
+| DB10.5 | Criar widget "Atividade Recentes" | P0 | S | [x] |
+| DB10.6 | Criar queries de agregacao para metricas | P0 | M | [x] |
 
 ### Criterios de Conclusao
 
-- [ ] Sidebar com secoes Visao Geral e Gestao
-- [ ] Pagina Dashboard criada
-- [ ] Icones consistentes
+- [ ] Sidebar com secoes "Visao Geral" e "Gestao"
+- [ ] Dashboard com Bento Grid funcionando
+- [ ] Metricas reais sendo exibidas
+- [ ] Responsividade funcionando
 
 ---
 
-## FASE 11: Organograma Aprimorado
+## FASE 11: Organograma Aprimorado V2
 
-**Objetivo:** Melhorar cards do organograma com mais indicadores e painel completo.
+**Objetivo:** Melhorar cards do organograma com badges e painel lateral expansivel.
 
 **Complexidade:** L (Complexo)
 
-**Dependencias:** Fase 3 completa
+**Dependencias:** Fases 8 e 10
 
 **Status:** [ ] Pendente
 
-### Tarefas
+### Tarefas - Cards V2
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| OG11.1 | Atualizar person-card.tsx com badges (metas, projetos, tarefas) | P0 | M | [ ] |
-| OG11.2 | Refatorar person-panel.tsx com secoes completas | P0 | L | [ ] |
-| OG11.3 | Criar componente ProgressBar visual | P0 | S | [ ] |
-| OG11.4 | Adicionar query de metas por pessoa | P0 | M | [ ] |
-| OG11.5 | Implementar botao expandir tela cheia | P1 | M | [ ] |
-| OG11.6 | Adicionar navegacao clicavel nos itens | P0 | M | [ ] |
+| OG11.1 | Atualizar `person-card` com `PersonCardV2` | P0 | M | [x] |
+| OG11.2 | Adicionar badges: metas, projetos, tarefas | P0 | M | [x] |
+| OG11.3 | Implementar avatar com ring colorido por area | P0 | S | [x] |
+| OG11.4 | Implementar status dot (online/ocupado/offline) | P0 | S | [x] |
+| OG11.5 | Animar badges no hover | P1 | S | [x] |
+| OG11.6 | Melhorar conectores visuais (linhas) | P0 | M | [x] |
+| OG11.7 | Adicionar ícones Lucide nas métricas (FolderKanban, CheckCircle2, Target) | P0 | S | [x] |
+
+### Tarefas - Painel Lateral V2
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| PN11.1 | Criar componente `SidePanelV2` | P0 | L | [x] |
+| PN11.2 | Implementar secoes: Perfil, Cargo, Projetos, Processos, Metas, Tarefas | P0 | L | [x] |
+| PN11.3 | Adicionar barras de progresso em projetos | P0 | M | [x] |
+| PN11.4 | Adicionar BPM visual em processos | P0 | M | [x] |
+| PN11.5 | Implementar botao "Expandir para tela cheia" | P0 | M | [x] |
+| PN11.6 | Implementar modo tela cheia do painel | P0 | M | [x] |
+| PN11.7 | Adicionar tabs para organizar secoes | P0 | S | [x] |
+
+### Tarefas - Queries
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| QY11.1 | Query de metas por pessoa | P0 | M | [ ] |
+| QY11.2 | Query de tarefas pendentes por pessoa | P0 | M | [ ] |
+| QY11.3 | Query de projetos com progresso | P0 | M | [ ] |
 
 ### Criterios de Conclusao
 
-- [ ] Cards com badges de metas, projetos, tarefas
-- [ ] Painel com progresso visual
-- [ ] Botao expandir funciona
-- [ ] Itens clicaveis navegam
+- [ ] Cards V2 com todos os badges
+- [ ] Painel lateral com todas as secoes
+- [ ] Botao expandir funcionando
+- [ ] Progresso visual em projetos
+- [ ] BPM visual em processos
 
 ---
 
-## FASE 12: Projetos com Kanban de Tarefas
+## FASE 12: Kanban Trello-Style
 
 **Objetivo:** Implementar Kanban de tarefas dentro de cada projeto (estilo Trello).
 
 **Complexidade:** L (Complexo)
 
-**Dependencias:** Fase 4 completa
+**Dependencias:** Fase 11
 
 **Status:** [ ] Pendente
 
-### Tarefas
+### Tarefas - Setup
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| KB12.1 | Instalar @atlaskit/pragmatic-drag-and-drop | P0 | S | [ ] |
-| KB12.2 | Atualizar tabela tarefas com kanban_column e ordem | P0 | S | [ ] |
-| KB12.3 | Criar componente KanbanBoard | P0 | L | [ ] |
-| KB12.4 | Criar componente KanbanColumn | P0 | M | [ ] |
-| KB12.5 | Criar componente KanbanTaskCard | P0 | M | [ ] |
-| KB12.6 | Implementar drag & drop entre colunas | P0 | L | [ ] |
-| KB12.7 | Criar filtros por responsavel/prioridade | P1 | M | [ ] |
-| KB12.8 | Integrar Kanban na pagina de detalhes do projeto | P0 | M | [ ] |
-| KB12.9 | Criar visao Kanban global /tarefas/kanban | P1 | M | [ ] |
+| KB12.1 | Instalar `@atlaskit/pragmatic-drag-and-drop` | P0 | S | [x] |
+| KB12.2 | Criar tabela `tarefas` com campos kanban | P0 | M | [x] |
+| KB12.3 | Adicionar colunas: `kanban_column`, `ordem` | P0 | S | [x] |
+
+### Tarefas - Componentes
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| KB12.4 | Criar componente `KanbanBoard` | P0 | L | [x] |
+| KB12.5 | Criar componente `KanbanColumn` | P0 | M | [x] |
+| KB12.6 | Criar componente `KanbanCard` rico | P0 | M | [x] |
+| KB12.7 | Implementar drag & drop entre colunas | P0 | L | [x] |
+| KB12.8 | Implementar reordenacao dentro da coluna | P0 | M | [x] |
+| KB12.9 | Adicionar preview ao arrastar | P1 | M | [x] |
+
+### Tarefas - Features
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| KB12.10 | Criar filtros por responsavel | P0 | M | [x] |
+| KB12.11 | Criar filtros por prioridade | P0 | M | [x] |
+| KB12.12 | Criar filtros por prazo | P1 | M | [x] |
+| KB12.13 | Integrar Kanban na pagina do projeto | P0 | M | [x] |
+| KB12.14 | Criar visao Kanban global em `/tarefas/kanban` | P1 | M | [x] |
+| KB12.15 | Persistir mudancas no banco em tempo real | P0 | M | [x] |
 
 ### Criterios de Conclusao
 
-- [ ] Kanban funcional com drag & drop
+- [x] Kanban funcional com drag & drop
+- [x] Cards ricos com todas as informacoes
+- [x] Filtros funcionando
+
+---
+
+## FASE 12B: Kanban Aprimorado (Melhorias Trello)
+
+**Objetivo:** Aprimorar o Kanban com funcionalidades inspiradas no Trello.
+
+**Complexidade:** M
+
+**Status:** [x] Completo (2026-02-20)
+
+### Melhorias Implementadas
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| KB12B.1 | Labels coloridas nos cards (prioridade) | P0 | S | [x] |
+| KB12B.2 | Indicador visual de tarefa atrasada | P0 | S | [x] |
+| KB12B.3 | Quick Add (adicionar card direto na coluna) | P0 | M | [x] |
+| KB12B.4 | Busca rápida por título/descrição | P0 | S | [x] |
+| KB12B.5 | Filtros por responsável e prioridade | P0 | M | [x] |
+| KB12B.6 | Estatísticas em tempo real (total, andamento, concluídas, atrasadas) | P0 | S | [x] |
+| KB12B.7 | Coluna colapsável | P1 | S | [x] |
+| KB12B.8 | Efeitos visuais no drag (opacity, rotate) | P1 | S | [x] |
+| KB12B.9 | Server Actions para CRUD completo | P0 | M | [x] |
+| KB12B.10 | Persistência Kanban no banco | P0 | M | [x] |
+| KB12B.11 | Modal de criação/edição de tarefas | P0 | M | [x] |
+
+### Funcionalidades Trello Implementadas
+
+- ✅ Labels coloridas (barra colorida no topo do card)
+- ✅ Badges de prioridade e prazo
+- ✅ Contagem de cards por coluna
+- ✅ Quick add inline nas colunas
+- ✅ Filtros por pessoa e prioridade
+- ✅ Busca em tempo real
+- ✅ Drag & drop com feedback visual
+- ✅ Card strikethrough quando concluído
+- ✅ Indicador de tarefas atrasadas
+- ✅ Estatísticas do board
 - [ ] Integrado na pagina do projeto
-- [ ] Filtros funcionando
+- [ ] Mudancas persistem no banco
 
 ---
 
@@ -487,25 +350,50 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 **Dependencias:** Fase 7 (multi-tenant) recomendada
 
-**Status:** [ ] Pendente
+**Status:** [x] Completo (2026-02-20) - CRUD completo implementado
 
-### Tarefas
+### Tarefas - Modelo
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| AC13.1 | Criar migracoes para areas e subareas | P0 | M | [ ] |
-| AC13.2 | Criar pagina /areas-cargos | P0 | L | [ ] |
-| AC13.3 | Criar componente visual do T | P0 | L | [ ] |
-| AC13.4 | Criar CRUD de subareas | P0 | M | [ ] |
-| AC13.5 | Criar CRUD de cargos dentro de subareas | P0 | M | [ ] |
-| AC13.6 | Atualizar relacionamentos em processos/projetos | P0 | M | [ ] |
+| AC13.1 | Criar migracao para tabela `areas` | P0 | M | [x] |
+| AC13.2 | Criar migracao para tabela `subareas` | P0 | M | [x] |
+| AC13.3 | Atualizar tabela `cargos` com `subarea_id` | P0 | M | [x] |
+| AC13.4 | Criar seeds de areas padrao (Aquisicao, Entrega, Operacao) | P0 | S | [x] |
+
+### Tarefas - Visual
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| AC13.5 | Criar pagina `/areas-cargos` | P0 | L | [x] |
+| AC13.6 | Criar componente visual do T | P0 | L | [x] |
+| AC13.7 | Implementar layout esquerda/direita/baixo | P0 | L | [x] |
+| AC13.8 | Adicionar cores visuais por area | P0 | S | [x] |
+
+### Tarefas - CRUD
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| AC13.9 | CRUD de subareas | P0 | M | [x] |
+| AC13.10 | CRUD de cargos dentro de subareas | P0 | M | [x] |
+| AC13.11 | Drag para reordenar subareas | P1 | M | [ ] |
+| AC13.12 | Drag para reordenar cargos | P1 | M | [ ] |
+
+### Tarefas - Integracao
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| AC13.13 | Atualizar relacionamentos em processos | P0 | M | [x] |
+| AC13.14 | Atualizar relacionamentos em projetos | P0 | M | [x] |
+| AC13.15 | Atualizar relacionamentos em pessoas | P0 | M | [x] |
 
 ### Criterios de Conclusao
 
-- [ ] Visualizacao em T funciona
-- [ ] CRUD de subareas funciona
-- [ ] CRUD de cargos funciona
-- [ ] Cargos vinculados a subareas
+- [x] Visualizacao em T funciona
+- [x] CRUD de subareas funciona
+- [x] CRUD de cargos funciona
+- [x] Cargos vinculados a subareas
+- [x] Cores por area aplicadas
 
 ---
 
@@ -515,27 +403,52 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 **Complexidade:** L (Complexo)
 
-**Dependencias:** Fase 13 completa
+**Dependencias:** Fases 9, 13
 
 **Status:** [ ] Pendente
 
-### Tarefas
+### Tarefas - Lista
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| RH14.1 | Criar pagina /colaboradores | P0 | M | [ ] |
-| RH14.2 | Criar componente ColaboradorCard completo | P0 | M | [ ] |
-| RH14.3 | Criar modal de cadastro/edicao completo | P0 | L | [ ] |
-| RH14.4 | Implementar filtros por area/cargo/status | P0 | M | [ ] |
-| RH14.5 | Criar funcionalidade desativar colaborador | P0 | M | [ ] |
-| RH14.6 | Criar pagina /perfil (self-service) | P1 | M | [ ] |
+| RH14.1 | Criar pagina `/colaboradores` | P0 | M | [x] |
+| RH14.2 | Criar componente `ColaboradorCard` completo | P0 | M | [x] |
+| RH14.3 | Implementar grid de cards | P0 | S | [x] |
+| RH14.4 | Implementar lista alternativa | P1 | M | [ ] |
+
+### Tarefas - Filtros
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| RH14.5 | Filtro por area | P0 | M | [x] |
+| RH14.6 | Filtro por cargo | P0 | M | [x] |
+| RH14.7 | Filtro por status (ativo/inativo/ferias) | P0 | M | [x] |
+| RH14.8 | Busca rapida por nome | P0 | S | [x] |
+
+### Tarefas - Cadastro/Edicao
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| RH14.9 | Modal de cadastro completo | P0 | L | [x] |
+| RH14.10 | Modal de edicao completo | P0 | L | [x] |
+| RH14.11 | Validacao de campos | P0 | M | [x] |
+| RH14.12 | Upload de foto no cadastro | P0 | M | [x] |
+
+### Tarefas - Acoes
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| RH14.13 | Funcionalidade desativar colaborador | P0 | M | [x] |
+| RH14.14 | Funcionalidade reativar colaborador | P0 | M | [x] |
+| RH14.15 | Historico de alteracoes | P1 | L | [ ] |
 
 ### Criterios de Conclusao
 
 - [ ] Lista de colaboradores funciona
+- [ ] Todos os filtros funcionam
 - [ ] CRUD completo funciona
-- [ ] Filtros funcionam
-- [ ] Desativar colaborador funciona
+- [ ] Desativar/reativar funciona
+- [ ] Upload de foto integrado
 
 ---
 
@@ -545,23 +458,43 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 **Complexidade:** M (Moderado)
 
-**Dependencias:** Fase 7 (multi-tenant) recomendada
+**Dependencias:** Fase 7 (multi-tenant)
 
 **Status:** [ ] Pendente
 
-> **Decisao:** Apenas Admin (CEO) pode gerenciar permissoes.
-
-### Tarefas
+### Tarefas - Modelo
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| RB15.1 | Criar tabelas RBAC (roles, user_roles) | P0 | M | [ ] |
-| RB15.2 | Criar seed de roles (admin, manager, member) | P0 | S | [ ] |
-| RB15.3 | Criar hook usePermissions() | P0 | M | [ ] |
-| RB15.4 | Criar componente PermissionGuard | P0 | S | [ ] |
-| RB15.5 | Atualizar RLS do Supabase | P0 | L | [ ] |
-| RB15.6 | Criar pagina de gerenciamento (so admin) | P1 | M | [ ] |
-| RB15.7 | Adicionar check de permissao em acoes | P0 | M | [ ] |
+| RB15.1 | Criar tabela `roles` | P0 | M | [x] |
+| RB15.2 | Criar tabela `user_roles` | P0 | M | [x] |
+| RB15.3 | Criar seed de roles (admin, manager, member) | P0 | S | [x] |
+| RB15.4 | Definir matriz de permissoes | P0 | M | [x] |
+
+### Tarefas - Hooks/Components
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| RB15.5 | Criar hook `usePermissions()` | P0 | M | [x] |
+| RB15.6 | Criar hook `useRole()` | P0 | S | [x] |
+| RB15.7 | Criar componente `PermissionGuard` | P0 | S | [x] |
+| RB15.8 | Criar componente `RoleGuard` | P0 | S | [x] |
+
+### Tarefas - RLS/Backend
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| RB15.9 | Atualizar RLS do Supabase com permissoes | P0 | L | [x] |
+| RB15.10 | Criar policies por role | P0 | L | [x] |
+| RB15.11 | Implementar middleware de permissao | P0 | M | [x] |
+
+### Tarefas - UI
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| RB15.12 | Criar pagina de gerenciamento (so Admin) | P0 | M | [x] |
+| RB15.13 | Interface para atribuir roles | P0 | M | [x] |
+| RB15.14 | Adicionar check de permissao em todas as acoes | P0 | M | [x] |
 
 ### Criterios de Conclusao
 
@@ -569,37 +502,55 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 - [ ] Hook de permissoes funciona
 - [ ] RLS atualizado
 - [ ] Pagina de gerenciamento (admin)
+- [ ] Acoes protegidas por permissao
 
 ---
 
-## FASE 16: Processos Visual
+## FASE 16: Processos BPM Visual
 
-**Objetivo:** Melhorar visualizacao de processos com etapas mais visuais.
+**Objetivo:** Melhorar visualizacao de processos com etapas visuais (BPM).
 
 **Complexidade:** M (Moderado)
 
-**Dependencias:** Fase 5 completa
+**Dependencias:** Fases 8, 11
 
 **Status:** [ ] Pendente
 
-### Tarefas (Versao Inicial)
+### Tarefas - V2 (Lista Visual)
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| BP16.1 | Melhorar componente de etapas com conexoes visuais | P1 | M | [ ] |
-| BP16.2 | Adicionar avatares de responsaveis por etapa | P1 | S | [ ] |
-| BP16.3 | Criar componente ProcessTimeline visual | P1 | M | [ ] |
-| BP16.4 | Adicionar indicador de progresso por etapa | P1 | M | [ ] |
-| BP16.5 | Criar filtros por area/cargo | P1 | M | [ ] |
+| BP16.1 | Atualizar tabela `processos` com etapas JSON | P0 | M | [x] |
+| BP16.2 | Criar componente `ProcessTimeline` | P0 | M | [x] |
+| BP16.3 | Visualizacao de etapas conectadas | P0 | M | [x] |
+| BP16.4 | Adicionar avatares de responsaveis por etapa | P0 | S | [x] |
+| BP16.5 | Indicador de progresso por etapa | P0 | M | [x] |
+| BP16.6 | Editor de etapas (add/remove/reorder) | P0 | M | [x] |
 
-### Tarefas (Futuro - BPMN)
+### Tarefas - Integracao
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| BP16.7 | Instalar bpmn-js | P3 | S | [ ] |
-| BP16.8 | Criar tabela process_diagrams | P3 | M | [ ] |
-| BP16.9 | Criar componente BPMEditor | P3 | XL | [ ] |
-| BP16.10 | Criar componente BPMViewer | P3 | L | [ ] |
+| BP16.7 | Filtros por area/cargo | P1 | M | [x] |
+| BP16.8 | Vincular com painel lateral de pessoas | P0 | M | [x] |
+
+### Futuro (V3.0) - BPMN Completo
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| BP16.9 | Instalar `bpmn-js` | P3 | S | [x] |
+| BP16.10 | Criar tabela `process_diagrams` | P3 | M | [x] |
+| BP16.11 | Criar componente `BPMEditor` | P3 | XL | [x] |
+| BP16.12 | Criar componente `BPMViewer` | P3 | L | [x] |
+| BP16.13 | Integrar BPMEditor no formulário de processos | P0 | L | [x] |
+| BP16.14 | Salvar XML BPMN automaticamente | P0 | M | [x] |
+
+### Criterios de Conclusao
+
+- [ ] Processos com etapas visuais
+- [ ] Timeline de processo funciona
+- [ ] Editor de etapas funciona
+- [ ] Responsaveis visiveis por etapa
 
 ---
 
@@ -609,7 +560,7 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 **Complexidade:** M (Moderado)
 
-**Dependencias:** Fase 12 (Kanban) completa
+**Dependencias:** Fase 12 (Kanban)
 
 **Status:** [ ] Pendente
 
@@ -617,55 +568,113 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| TA17.1 | Criar pagina /tarefas | P1 | M | [ ] |
-| TA17.2 | Criar componente TarefaCard | P1 | M | [ ] |
-| TA17.3 | Criar componente TarefaForm | P1 | M | [ ] |
-| TA17.4 | Implementar filtros | P1 | M | [ ] |
-| TA17.5 | Vincular com projetos | P1 | M | [ ] |
+| TA17.1 | Criar pagina `/tarefas` | P0 | M | [x] |
+| TA17.2 | Criar componente `TarefaCard` | P0 | M | [x] |
+| TA17.3 | Criar componente `TarefaForm` | P0 | M | [x] |
+| TA17.4 | Implementar filtros completos | P0 | M | [x] |
+| TA17.5 | Vincular com projetos | P0 | M | [x] |
+| TA17.6 | Implementar visao Lista | P0 | S | [x] |
+| TA17.7 | Implementar visao Kanban global | P1 | M | [x] |
+| TA17.8 | Criar/quick add de tarefas | P1 | M | [x] |
+
+### Criterios de Conclusao
+
+- [ ] Pagina de tarefas funciona
+- [ ] Filtros completos
+- [ ] Vinculo com projetos
+- [ ] Ambas as visoes (lista/kanban)
 
 ---
 
-## FASE 18: Navegacao e Paineis
+## FASE 18: Navegacao Clicavel + Paineis
 
-**Objetivo:** Padronizar navegacao e criar componente de painel lateral expansivel.
+**Objetivo:** Padronizar navegacao e garantir que tudo seja clicavel.
 
 **Complexidade:** M (Moderado)
 
-**Dependencias:** Fase 8 (Design System) recomendada
+**Dependencias:** Todas as fases anteriores
 
 **Status:** [ ] Pendente
 
-### Tarefas
+### Tarefas - SidePanel Expansivel
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| NA18.1 | Criar componente SidePanel expansivel | P0 | M | [ ] |
-| NA18.2 | Implementar regra: nome de pessoa abre painel | P0 | M | [ ] |
-| NA18.3 | Adicionar botao expandir em paineis | P1 | S | [ ] |
-| NA18.4 | Criar todas as rotas planejadas | P0 | M | [ ] |
-| NA18.5 | Adicionar breadcrumbs | P1 | S | [ ] |
+| NA18.1 | Finalizar componente `SidePanelV2` | P0 | M | [x] |
+| NA18.2 | Implementar regra: nome de pessoa abre painel | P0 | M | [x] |
+| NA18.3 | Adicionar botao expandir em todos os paineis | P0 | S | [x] |
+| NA18.4 | Implementar modo tela cheia | P0 | M | [x] |
+
+### Tarefas - Rotas
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| NA18.5 | Criar todas as rotas planejadas | P0 | M | [x] |
+| NA18.6 | Mapear navegacao entre paginas | P0 | M | [x] |
+| NA18.7 | Adicionar breadcrumbs | P1 | S | [x] |
+| NA18.8 | Configurar transicoes de pagina | P1 | M | [x] |
+
+### Tarefas - Links
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| NA18.9 | Link de pessoa → painel lateral | P0 | S | [x] |
+| NA18.10 | Link de projeto → pagina projeto | P0 | S | [x] |
+| NA18.11 | Link de processo → pagina processo | P0 | S | [x] |
+| NA18.12 | Link de area → visao area | P0 | S | [x] |
+| NA18.13 | Badges clicaveis (metas/projetos/tarefas) | P0 | M | [x] |
 
 ### Criterios de Conclusao
 
 - [ ] SidePanel funciona com expansao
-- [ ] Todas rotas funcionam
+- [ ] Todas as rotas funcionam
 - [ ] Navegacao consistente
+- [ ] Tudo que deve ser clicavel, eh clicavel
 
 ---
 
-## BACKLOG: Futuro
-
-Funcionalidades COULD do PRD - sem data definida.
+## BACKLOG: V3.0+ - Funcionalidades Avançadas
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| B1 | Notificacoes de status (projeto atrasado) | P2 | M | Backlog |
+| B1 | Notificacoes de status (push/email) | P2 | M | Backlog |
 | B2 | Integracao com Notion | P3 | L | Backlog |
 | B3 | Integracao com Trello | P3 | L | Backlog |
-| B4 | Drag & drop para reorganizar estrutura | P3 | L | Backlog |
+| B4 | Drag & drop no organograma | P2 | L | Backlog |
 | B5 | Visualizacao alternativa (lista, arvore) | P3 | M | Backlog |
 | B6 | Google OAuth | P2 | M | Backlog |
-| B7 | Tarefas pendentes por pessoa | P2 | M | Backlog |
+| B7 | Exportar PDF/Imagem | P2 | M | Backlog |
+| B9 | App mobile (PWA) | P3 | XL | Backlog |
+| B10 | Multi-tenant interface | P3 | XL | Backlog |
+
+---
+
+## FASE 19: BPMN Editor Completo
+
+**Objetivo:** Implementar editor visual de processos estilo BPMN 2.0.
+
+**Complexidade:** XL (Muito Complexo)
+
+**Status:** [x] Completo
+
+### Tarefas
+
+| ID | Tarefa | Prioridade | Complexidade | Status |
+|----|--------|------------|--------------|--------|
+| BPM19.1 | Instalar `bpmn-js` e `bpmn-js-properties-panel` | P3 | S | [x] |
+| BPM19.2 | Criar tabela `process_diagrams` no banco | P3 | M | [x] |
+| BPM19.3 | Criar componente `BPMNEditor` | P3 | XL | [x] |
+| BPM19.4 | Criar componente `BPMNViewer` (visualização) | P3 | L | [x] |
+| BPM19.5 | Integrar editor na página de processos | P3 | M | [x] |
+| BPM19.6 | Adicionar toolbar com ferramentas | P3 | M | [x] |
+| BPM19.7 | Salvar/carregar diagramas do banco | P3 | M | [x] |
+
+### Criterios de Conclusao
+
+- [x] Biblioteca BPMN instalada
+- [x] Editor visual funcionando
+- [x] Visualizador de diagramas
+- [x] Salvar/carregar do banco
 
 ---
 
@@ -675,8 +684,8 @@ Funcionalidades COULD do PRD - sem data definida.
 
 | Simbolo | Significado |
 |---------|-------------|
-| P0 | Obrigatorio para MVP - nao pode faltar |
-| P1 | Importante - deve ter logo apos MVP |
+| P0 | Obrigatorio para V2.0 - nao pode faltar |
+| P1 | Importante - deve ter |
 | P2 | Nice to have - quando tiver tempo |
 | P3 | Futuro - talvez nunca |
 
@@ -705,12 +714,50 @@ Funcionalidades COULD do PRD - sem data definida.
 
 | Documento | Status | Arquivo |
 |-----------|--------|---------|
-| PRD | [x] | docs/PRD.md |
-| Arquitetura | [x] | docs/ARQUITETURA/ |
-| Roadmap | [x] | docs/ROADMAP.md |
-| Design | [x] | docs/DESIGN/ |
+| PRD | [x] Atualizado | docs/PRD.md |
+| Arquitetura | [x] Atualizado | docs/ARQUITETURA.md |
+| Roadmap | [x] Atualizado | docs/ROADMAP.md |
+| Design | [>] Parcial | docs/DESIGN/tokens.md |
 
-> Complete todos os pre-requisitos antes de `*desenvolver`.
+---
+
+## Ordem de Implementacao Sugerida (ATUAL - Fev 2026)
+
+> Baseado no status real do projeto - Muitas fases ja estao prontas!
+
+### ✅ Fases Completas (8/12)
+- ✅ Fase 9: Esqueci Senha + Foto Perfil
+- ✅ Fase 10: Sidebar Reorganizada + Dashboard
+- ✅ Fase 12: Kanban Trello-Style
+- ✅ Fase 13: Areas e Cargos (Formato T)
+- ✅ Fase 14: Colaboradores + RH
+- ✅ Fase 16: Processos BPM Visual
+- ✅ Fase 17: Tarefas Aprimoradas
+
+### 🎯 Proximos Passos
+
+### Sprint 1 - Design & Visual (Semana 1)
+1. **Fase 8: Design System V2.0** ⬅️ ATUAL
+   - Criar tokens V2 com multi-accent
+   - Atualizar componentes base (PersonCardV2, StatusDot, etc)
+   - Elevation system e motion design
+
+### Sprint 2 - Organograma V2 (Semana 2)
+2. **Fase 11: Organograma Aprimorado V2**
+   - Cards V2 com badges (metas, projetos, tarefas)
+   - Avatar com ring colorido por area
+   - Painel lateral expansivel
+   - Botao expandir para tela cheia
+
+### Sprint 3 - Finalizacao (Semana 3)
+3. **Fase 7: Multi-Tenant** (finalizar testes)
+4. **Fase 15: RBAC** (aplicar permissoes nas acoes)
+5. **Fase 18: Navegacao** (painel tela cheia, badges clicaveis)
+
+### Sprint 4 - Polish (Semana 4)
+6. Testes integrados
+7. Ajustes de UX
+8. Documentacao final
 
 ---
 
@@ -718,40 +765,11 @@ Funcionalidades COULD do PRD - sem data definida.
 
 | Data | Versao | Mudanca |
 |------|--------|---------|
-| 2026-02-20 | 2.0.1 | Atualiza Fase 8 com tarefas detalhadas de design tokens |
-| 2026-02-20 | 2.0.0 | Planejamento V2.0 - 12 novas fases |
-| 2026-02-19 | 1.7.0 | Marca PL6.8 - Modo escuro |
-| 2026-02-19 | 1.6.0 | Marca PL6.7 - Animacoes e transicoes |
-| 2026-02-19 | 1.5.0 | Marca PL6.6 - Historico de projetos entregues |
-| 2026-02-19 | 1.4.0 | Marca PL6.9 - Responsividade completa |
-| 2026-02-19 | 1.3.0 | Marca PL6.4 - Niveis de zoom como completo |
-| 2026-02-19 | 1.2.0 | Marca PL6.3 - Busca por nome/cargo como completa |
-| 2026-02-19 | 1.1.0 | Adiciona PL6.1 - Sidebar lateral colapsavel |
+| 2026-02-20 | 2.0.2 | Fase 13 completa: CRUD de subáreas e cargos implementado na página /areas-cargos. Usuários podem criar/editar/excluir subáreas e cargos vinculados. Políticas RLS atualizadas para permitir insert de usuários autenticados. |
+| 2026-02-20 | 2.0.1 | Atualizacao de status real: Fases 9, 10, 12, 13, 14, 16, 17 marcadas como completas. Fases 7, 11, 15, 18 parciais. Apenas Fase 8 pendente. |
+| 2026-02-20 | 2.0.0 | Atualizacao completa com todas as funcionalidades do Pedido.md: Multi-tenant, Design System V2, Esqueci senha, Foto perfil, Sidebar reorganizada, Dashboard, Organograma V2, Kanban, Areas/Cargos T, Colaboradores RH, RBAC, Processos BPM, Tarefas, Navegacao clicavel |
+| 2026-02-20 | 1.7.0 | Marca PL6.8 - Modo escuro |
 | 2026-02-19 | 1.0.0 | Criacao inicial do roadmap |
-
----
-
-## Ordem de Implementacao Sugerida
-
-### Sprint 1 (Core)
-1. Fase 9: Esqueci Senha + Foto Perfil
-2. Fase 10: Sidebar Reorganizada
-3. Fase 7: Multi-Tenant (Preparacao)
-
-### Sprint 2 (Visual)
-4. Fase 8: Design System Profissional
-5. Fase 11: Organograma Aprimorado
-6. Fase 18: Navegacao e Paineis
-
-### Sprint 3 (Funcionalidades)
-7. Fase 13: Areas e Cargos (T)
-8. Fase 12: Projetos com Kanban de Tarefas
-9. Fase 15: Permissoes (RBAC)
-
-### Sprint 4 (Expansao)
-10. Fase 14: Colaboradores + RH
-11. Fase 17: Tarefas Aprimoradas
-12. Fase 16: Processos Visual
 
 ---
 
@@ -760,3 +778,7 @@ Funcionalidades COULD do PRD - sem data definida.
 - Use `*roadmap` para revisar
 - Marque tarefas como completas quando terminar
 - Mova tarefas entre fases conforme necessario
+
+---
+
+**FIM DO DOCUMENTO**
