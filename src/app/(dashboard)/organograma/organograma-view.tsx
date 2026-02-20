@@ -145,10 +145,16 @@ function NivelHierarquico({
 
 export function OrganogramaView({ pessoas, isLoading, error, onEdit, onDelete }: OrganogramaViewProps) {
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null)
+  const [zoom, setZoom] = useState(100)
 
   const gruposPorNivel = agruparPorNivel(pessoas)
   const gruposPorGerente = agruparPorGerente(pessoas)
   const pessoaSelecionada = pessoas.find(p => p.id === selectedPersonId)
+
+  // Controles de zoom
+  const handleZoomIn = () => setZoom(prev => Math.min(prev + 10, 150))
+  const handleZoomOut = () => setZoom(prev => Math.max(prev - 10, 50))
+  const handleZoomReset = () => setZoom(100)
 
   // Estado de erro
   if (error) {
@@ -219,9 +225,43 @@ export function OrganogramaView({ pessoas, isLoading, error, onEdit, onDelete }:
 
   return (
     <div className="relative">
+      {/* Controles de zoom */}
+      <div className="flex items-center gap-2 mb-4">
+        <button
+          onClick={handleZoomOut}
+          disabled={zoom <= 50}
+          className="p-2 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          title="Diminuir zoom"
+        >
+          <svg className="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+          </svg>
+        </button>
+        <button
+          onClick={handleZoomReset}
+          className="px-3 py-1.5 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors text-sm font-medium text-text-secondary min-w-[60px]"
+          title="Resetar zoom"
+        >
+          {zoom}%
+        </button>
+        <button
+          onClick={handleZoomIn}
+          disabled={zoom >= 150}
+          className="p-2 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          title="Aumentar zoom"
+        >
+          <svg className="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+      </div>
+
       {/* Container do Organograma com scroll horizontal */}
       <div className="overflow-x-auto pb-4">
-        <div className="min-w-max space-y-2">
+        <div
+          className="min-w-max space-y-2 transition-transform origin-top-left"
+          style={{ transform: `scale(${zoom / 100})` }}
+        >
           {/* Renderizar cada nível */}
           {niveis.map((nivel, index) => (
             <div key={nivel}>
