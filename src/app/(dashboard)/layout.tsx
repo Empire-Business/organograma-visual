@@ -38,6 +38,7 @@ export default async function DashboardLayout({
               <nav className="hidden md:flex items-center gap-1">
                 <NavLink href="/organograma">Organograma</NavLink>
                 <NavLink href="/projetos">Projetos</NavLink>
+                <NavLink href="/processos">Processos</NavLink>
               </nav>
             </div>
 

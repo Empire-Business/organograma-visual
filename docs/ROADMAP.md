@@ -18,7 +18,7 @@
 
 **Fases:** 6 fases planejadas
 
-**Status atual:** Fase 0 - Preparacao
+**Status atual:** Fase 5 completa - Fase 6 (Polish) pendente
 
 ---
 
@@ -31,7 +31,7 @@
 | 2 | Organograma | [x] Completo | L |
 | 3 | Detalhes | [x] Completo | L |
 | 4 | Projetos | [x] Completo | M |
-| 5 | Processos | [ ] Pendente | M |
+| 5 | Processos | [x] Completo | M |
 | 6 | Polish | [ ] Pendente | S |
 
 ---
@@ -205,26 +205,28 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 **Dependencias:** Fase 3 completa
 
+**Status:** Completo ✓
+
 ### Tarefas
 
 | ID | Tarefa | Prioridade | Complexidade | Status |
 |----|--------|------------|--------------|--------|
-| PR5.1 | Criar lista de processos no painel da pessoa | P0 | S | [ ] |
-| PR5.2 | Criar componente de card de processo | P0 | S | [ ] |
-| PR5.3 | Criar pagina/modal de detalhes do processo | P0 | M | [ ] |
-| PR5.4 | Mostrar etapas do processo | P0 | M | [ ] |
-| PR5.5 | Mostrar responsaveis por etapa | P0 | S | [ ] |
-| PR5.6 | CRUD de processos (criar, editar) | P0 | L | [ ] |
-| PR5.7 | Associar processos a cargos | P0 | M | [ ] |
-| PR5.8 | Editor de etapas (adicionar, remover, ordenar) | P0 | M | [ ] |
+| PR5.1 | Criar lista de processos no painel da pessoa | P0 | S | [x] |
+| PR5.2 | Criar componente de card de processo | P0 | S | [x] |
+| PR5.3 | Criar pagina/modal de detalhes do processo | P0 | M | [x] |
+| PR5.4 | Mostrar etapas do processo | P0 | M | [x] |
+| PR5.5 | Mostrar responsaveis por etapa | P0 | S | [x] |
+| PR5.6 | CRUD de processos (criar, editar) | P0 | L | [x] |
+| PR5.7 | Associar processos a cargos | P0 | M | [x] |
+| PR5.8 | Editor de etapas (adicionar, remover, ordenar) | P0 | M | [x] |
 
 ### Criterios de Conclusao
 
-- [ ] Lista de processos aparece no painel da pessoa
-- [ ] Clique em processo mostra etapas
-- [ ] Consegue criar/editar processos
-- [ ] Consegue associar processos a cargos
-- [ ] Etapas sao editaveis
+- [x] Lista de processos aparece no painel da pessoa
+- [x] Clique em processo mostra etapas
+- [x] Consegue criar/editar processos
+- [x] Consegue associar processos a cargos
+- [x] Etapas sao editaveis
 
 ---
 
