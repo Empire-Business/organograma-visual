@@ -23,6 +23,24 @@ const MIGRATIONS = [
     file: '003_areas_subareas.sql',
     description: 'Tabelas areas, subareas para formato T',
   },
+  {
+    id: '004',
+    name: 'Fix Missing Objects',
+    file: '004_fix_missing.sql',
+    description: 'Cria incrementalmente objetos que faltam (tenants, areas, subareas, user_profiles)',
+  },
+  {
+    id: '005',
+    name: 'Seed Subáreas',
+    file: '005_seed_subareas.sql',
+    description: 'Subáreas padrão via DO block',
+  },
+  {
+    id: '006',
+    name: 'Seed Subáreas Clean',
+    file: '006_seed_subareas_clean.sql',
+    description: 'Subáreas padrão (10 subáreas: Marketing, Vendas, CS, Produto, Dev, Design, Financeiro, RH, TI, Admin)',
+  },
 ]
 
 interface MigrationStatus {

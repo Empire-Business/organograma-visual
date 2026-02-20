@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 interface Cargo {
@@ -24,7 +25,6 @@ interface Processo {
 
 interface ProcessoCardProps {
   processo: Processo
-  onView: () => void
   onEdit: () => void
   onDelete: () => void
 }
@@ -40,13 +40,13 @@ const frequenciaLabels: Record<string, string> = {
   sob_demanda: 'Sob demanda'
 }
 
-export function ProcessoCard({ processo, onView, onEdit, onDelete }: ProcessoCardProps) {
+export function ProcessoCard({ processo, onEdit, onDelete }: ProcessoCardProps) {
   const etapasCount = processo.etapas?.length || 0
 
   return (
-    <div
-      className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 cursor-pointer animate-fade-in"
-      onClick={onView}
+    <Link
+      href={`/processos/${processo.id}`}
+      className="block bg-[var(--card)] rounded-xl border border-[var(--border)] p-5 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
@@ -106,20 +106,26 @@ export function ProcessoCard({ processo, onView, onEdit, onDelete }: ProcessoCar
       </div>
 
       {/* Ações */}
-      <div className="flex gap-2 pt-3 border-t border-gray-100" onClick={e => e.stopPropagation()}>
+      <div className="flex gap-2 pt-3 border-t border-[var(--border)]" onClick={e => e.preventDefault()}>
         <button
-          onClick={onEdit}
-          className="flex-1 px-3 py-2 text-sm text-accent-600 hover:bg-accent-50 rounded-lg transition-colors"
+          onClick={(e) => {
+            e.preventDefault()
+            onEdit()
+          }}
+          className="flex-1 px-3 py-2 text-sm text-accent-600 hover:bg-accent-50 dark:hover:bg-accent-900/30 rounded-lg transition-colors"
         >
           Editar
         </button>
         <button
-          onClick={onDelete}
-          className="px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          onClick={(e) => {
+            e.preventDefault()
+            onDelete()
+          }}
+          className="px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
         >
           Excluir
         </button>
       </div>
-    </div>
+    </Link>
   )
 }

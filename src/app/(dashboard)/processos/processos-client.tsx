@@ -248,7 +248,6 @@ export function ProcessosClient({ processos: initialProcessos, cargos }: Process
               <ProcessoCard
                 key={processo.id}
                 processo={processo}
-                onView={() => handleView(processo)}
                 onEdit={() => handleEdit(processo)}
                 onDelete={() => handleDelete(processo.id)}
               />

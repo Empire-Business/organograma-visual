@@ -2,56 +2,41 @@
 
 import { useState, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { Avatar } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
 
 interface AvatarUploadProps {
   currentAvatarUrl?: string | null
   nome: string
+  userId?: string
+  pessoaId?: string
   onUploadComplete: (url: string) => void
   onError?: (error: string) => void
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
 }
 
 export function AvatarUpload({
   currentAvatarUrl,
   nome,
+  userId,
+  pessoaId,
   onUploadComplete,
   onError,
-  size = 'md'
+  size = 'lg'
 }: AvatarUploadProps) {
+
+  // Usar userId ou pessoaId como identificador
+  const storageId = userId || pessoaId || 'default'
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const supabase = createClient()
 
   const sizeClasses = {
-    sm: 'w-12 h-12 text-sm',
-    md: 'w-20 h-20 text-xl',
-    lg: 'w-32 h-32 text-3xl'
-  }
-
-  // Gerar iniciais do nome
-  const iniciais = nome
-    .split(' ')
-    .map(n => n[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
-
-  // Gerar cor baseada no nome
-  const getColorFromName = (name: string) => {
-    const colors = [
-      'bg-violet-500',
-      'bg-blue-500',
-      'bg-green-500',
-      'bg-amber-500',
-      'bg-rose-500',
-      'bg-cyan-500',
-      'bg-indigo-500',
-      'bg-emerald-500'
-    ]
-    const hash = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
-    return colors[hash % colors.length]
+    sm: 'w-8 h-8',
+    md: 'w-12 h-12',
+    lg: 'w-20 h-20',
+    xl: 'w-32 h-32'
   }
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,9 +49,9 @@ export function AvatarUpload({
       return
     }
 
-    // Validar tamanho (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      onError?.('A imagem deve ter no maximo 2MB')
+    // Validar tamanho (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      onError?.('A imagem deve ter no máximo 5MB')
       return
     }
 
@@ -81,32 +66,33 @@ export function AvatarUpload({
     setUploading(true)
     try {
       const fileExt = file.name.split('.').pop()
-      const fileName = `${Date.now()}.${fileExt}`
-      const filePath = `avatars/${fileName}`
+      const fileName = `avatar.${fileExt}`
+      const filePath = `${storageId}/${fileName}`
 
       const { error: uploadError } = await supabase.storage
         .from('avatars')
         .upload(filePath, file, {
           cacheControl: '3600',
-          upsert: false
+          upsert: true,
+          contentType: file.type
         })
 
       if (uploadError) {
-        // Se o bucket nao existe, tentar criar
         if (uploadError.message.includes('not found')) {
-          onError?.('Bucket de avatares nao configurado. Entre em contato com o administrador.')
+          onError?.('Bucket de avatares não configurado. Entre em contato com o administrador.')
         } else {
           throw uploadError
         }
         return
       }
 
-      // Obter URL publica
+      // Obter URL pública com timestamp para evitar cache
       const { data: { publicUrl } } = supabase.storage
         .from('avatars')
         .getPublicUrl(filePath)
 
-      onUploadComplete(publicUrl)
+      const urlWithCache = `${publicUrl}?t=${Date.now()}`
+      onUploadComplete(urlWithCache)
     } catch (error) {
       console.error('Erro no upload:', error)
       onError?.('Erro ao fazer upload da imagem')
@@ -132,21 +118,14 @@ export function AvatarUpload({
           'relative rounded-full overflow-hidden transition-all duration-200',
           'hover:ring-4 hover:ring-accent-500/30',
           'focus:outline-none focus:ring-4 focus:ring-accent-500/50',
-          sizeClasses[size],
-          !displayUrl && getColorFromName(nome || 'U')
+          sizeClasses[size]
         )}
       >
-        {displayUrl ? (
-          <img
-            src={displayUrl}
-            alt={nome || 'Avatar'}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <span className="text-white font-medium flex items-center justify-center w-full h-full">
-            {iniciais || '?'}
-          </span>
-        )}
+        <Avatar
+          src={displayUrl}
+          name={nome}
+          size={size}
+        />
 
         {/* Overlay no hover */}
         <div className={cn(
@@ -173,7 +152,7 @@ export function AvatarUpload({
         className="hidden"
       />
 
-      <span className="text-xs text-text-secondary">
+      <span className="text-xs text-[var(--muted-foreground)]">
         {uploading ? 'Enviando...' : 'Clique para alterar'}
       </span>
     </div>

@@ -153,6 +153,7 @@ export function PersonFormModal({
             <AvatarUpload
               currentAvatarUrl={avatarUrl}
               nome={formData.nome}
+              pessoaId={pessoa?.id}
               onUploadComplete={(url) => setAvatarUrl(url)}
               onError={(error) => setError(error)}
               size="lg"

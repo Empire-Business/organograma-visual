@@ -32,9 +32,10 @@ interface Pessoa {
 interface PerfilClientProps {
   pessoa: Pessoa
   userEmail: string
+  userId: string
 }
 
-export function PerfilClient({ pessoa, userEmail }: PerfilClientProps) {
+export function PerfilClient({ pessoa, userEmail, userId }: PerfilClientProps) {
   const router = useRouter()
   const supabase = createClient()
 
@@ -101,6 +102,7 @@ export function PerfilClient({ pessoa, userEmail }: PerfilClientProps) {
               <AvatarUpload
                 currentAvatarUrl={formData.avatar_url}
                 nome={formData.nome}
+                userId={userId}
                 onUploadComplete={handleAvatarUpload}
                 onError={(err) => setError(err)}
                 size="lg"

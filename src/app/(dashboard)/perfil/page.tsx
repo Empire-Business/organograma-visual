@@ -56,5 +56,5 @@ export default async function PerfilPage() {
     cargos: cargo
   }
 
-  return <PerfilClient pessoa={pessoa} userEmail={user.email || ''} />
+  return <PerfilClient pessoa={pessoa} userEmail={user.email || ''} userId={user.id} />
 }
