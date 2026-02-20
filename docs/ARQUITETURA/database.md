@@ -4,9 +4,251 @@
 
 Este documento descreve como os dados sao organizados no PostgreSQL via Supabase.
 
+**Versao:** 2.0
+**Ultima atualizacao:** 2026-02-20
+
 ---
 
-## Diagrama Entidade-Relacionamento
+## Diagrama Entidade-Relacionamento (V2.0)
+
+```
+┌─────────────┐
+│   tenants   │ ← NOVO (Whitelabel)
+├─────────────┤
+│ id (PK)     │
+│ nome        │
+│ slug        │
+│ config      │
+└──────┬──────┘
+       │
+       │ tenant_id (FK em todas as tabelas)
+       │
+       ▼
+┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+│   areas     │ ←NOVO │  subareas   │ ←NOVO │   cargos    │
+├─────────────┤       ├─────────────┤       ├─────────────┤
+│ id (PK)     │◄──────│ area_id (FK)│◄──────│ subarea_id  │
+│ nome        │       │ id (PK)     │       │ id (PK)     │
+│ posicao     │       │ nome        │       │ nome        │
+│ tenant_id   │       │ cor         │       │ descricao   │
+└─────────────┘       │ tenant_id   │       │ nivel       │
+                      └─────────────┘       │ funcoes     │
+                                            │ metas       │
+                                            │ tenant_id   │
+                                            └──────┬──────┘
+                                                   │
+                                                   │ cargo_id (FK)
+                                                   │
+┌─────────────┐                            ┌──────▼──────┐
+│   pessoas   │                            │  processos  │
+├─────────────┤                            ├─────────────┤
+│ id (PK)     │                            │ id (PK)     │
+│ nome        │                            │ nome        │
+│ email       │                            │ etapas      │
+│ cargo_id(FK)│                            │ cargo_id    │
+│ avatar_url  │                            │ tenant_id   │
+│ reports_to  │──┐                         └─────────────┘
+│ tenant_id   │  │
+└─────────────┘  │
+                 │
+┌─────────────┐  │       ┌─────────────────┐       ┌─────────────┐
+│  projetos   │  │       │ projeto_pessoas │       │  tarefas    │ ← ATUALIZADO
+├─────────────┤  │       ├─────────────────┤       ├─────────────┤
+│ id (PK)     │◄─┼───────│ projeto_id (FK) │       │ id (PK)     │
+│ nome        │  │       │ pessoa_id (FK)  │──────►│ titulo      │
+│ status      │  │       │ papel           │       │ pessoa_id   │
+│ progresso   │  │       └─────────────────┘       │ projeto_id  │
+│ tenant_id   │  │                                   │ kanban_column│ ← NOVO
+└─────────────┘  │                                   │ kanban_order │ ← NOVO
+                 │                                   │ tenant_id   │
+                 └──────────────────────────────────►└─────────────┘
+
+┌─────────────┐       ┌─────────────┐
+│   roles     │ ←NOVO │  user_roles │ ←NOVO
+├─────────────┤       ├─────────────┤
+│ id (PK)     │◄──────│ role_id (FK)│
+│ nome        │       │ user_id (FK)│
+│ nivel       │       │ tenant_id   │
+│ is_system   │       └─────────────┘
+└─────────────┘
+```
+
+---
+
+## NOVAS TABELAS (V2.0)
+
+### tenants (Whitelabel/Multi-tenant)
+
+| Campo | Tipo | Obrigatorio | Descricao |
+|-------|------|-------------|-----------|
+| id | UUID | Sim | Identificador unico |
+| nome | VARCHAR(255) | Sim | Nome da organizacao/marca |
+| slug | VARCHAR(100) | Sim | Identificador URL (unico) |
+| config | JSONB | Nao | Configuracoes (cores, logo, dominio) |
+| ativo | BOOLEAN | Sim | Se o tenant esta ativo |
+| criado_em | TIMESTAMP | Sim | Data de criacao |
+
+```sql
+CREATE TABLE tenants (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nome VARCHAR(255) NOT NULL,
+  slug VARCHAR(100) UNIQUE NOT NULL,
+  config JSONB DEFAULT '{}',
+  ativo BOOLEAN DEFAULT true,
+  criado_em TIMESTAMP DEFAULT NOW()
+);
+```
+
+---
+
+### areas (Estrutura em T)
+
+| Campo | Tipo | Obrigatorio | Descricao |
+|-------|------|-------------|-----------|
+| id | UUID | Sim | Identificador unico |
+| nome | VARCHAR(100) | Sim | Nome configuravel (ex: "Aquisicao") |
+| posicao | VARCHAR(10) | Sim | FIXO: 'esquerda', 'direita', 'baixo' |
+| descricao | TEXT | Nao | Descricao da area |
+| icone | VARCHAR(50) | Nao | Nome do icone |
+| tenant_id | UUID | Sim | FK para tenants |
+
+```sql
+CREATE TABLE areas (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nome VARCHAR(100) NOT NULL,
+  posicao VARCHAR(10) NOT NULL CHECK (posicao IN ('esquerda', 'direita', 'baixo')),
+  descricao TEXT,
+  icone VARCHAR(50),
+  tenant_id UUID REFERENCES tenants(id),
+  UNIQUE(tenant_id, posicao)
+);
+```
+
+---
+
+### subareas
+
+| Campo | Tipo | Obrigatorio | Descricao |
+|-------|------|-------------|-----------|
+| id | UUID | Sim | Identificador unico |
+| area_id | UUID | Sim | FK para areas |
+| nome | VARCHAR(100) | Sim | Nome da subarea |
+| descricao | TEXT | Nao | Descricao |
+| ordem | INTEGER | Nao | Ordem de exibicao |
+| cor | VARCHAR(7) | Nao | Cor visual (hex) |
+| tenant_id | UUID | Sim | FK para tenants |
+
+```sql
+CREATE TABLE subareas (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  area_id UUID REFERENCES areas(id) ON DELETE CASCADE,
+  nome VARCHAR(100) NOT NULL,
+  descricao TEXT,
+  ordem INTEGER DEFAULT 0,
+  cor VARCHAR(7) DEFAULT '#6366f1',
+  tenant_id UUID REFERENCES tenants(id)
+);
+```
+
+---
+
+### roles (Permissoes)
+
+| Campo | Tipo | Obrigatorio | Descricao |
+|-------|------|-------------|-----------|
+| id | UUID | Sim | Identificador unico |
+| nome | VARCHAR(50) | Sim | 'admin', 'manager', 'member' |
+| descricao | TEXT | Nao | Descricao do role |
+| nivel | INTEGER | Sim | 1=admin, 2=manager, 3=member |
+| is_system | BOOLEAN | Sim | Se e role de sistema (nao removivel) |
+
+```sql
+CREATE TABLE roles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nome VARCHAR(50) NOT NULL UNIQUE,
+  descricao TEXT,
+  nivel INTEGER NOT NULL,
+  is_system BOOLEAN DEFAULT false
+);
+
+-- Seed inicial
+INSERT INTO roles (nome, descricao, nivel, is_system) VALUES
+  ('admin', 'Administrador com acesso total', 1, true),
+  ('manager', 'Gerente com acesso a sua area', 2, false),
+  ('member', 'Membro com acesso basico', 3, false);
+```
+
+---
+
+### user_roles (Atribuicao de roles)
+
+| Campo | Tipo | Obrigatorio | Descricao |
+|-------|------|-------------|-----------|
+| user_id | UUID | Sim | FK para auth.users |
+| role_id | UUID | Sim | FK para roles |
+| tenant_id | UUID | Sim | FK para tenants |
+| atribuido_por | UUID | Nao | FK para auth.users (quem atribuiu) |
+
+```sql
+CREATE TABLE user_roles (
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  role_id UUID REFERENCES roles(id),
+  tenant_id UUID REFERENCES tenants(id),
+  atribuido_por UUID REFERENCES auth.users(id),
+  PRIMARY KEY (user_id, role_id)
+);
+```
+
+---
+
+## TABELAS ATUALIZADAS (V2.0)
+
+### cargos (Atualizado)
+
+**Novos campos:**
+| Campo | Tipo | Obrigatorio | Descricao |
+|-------|------|-------------|-----------|
+| subarea_id | UUID | Nao | FK para subareas (NOVO) |
+| tenant_id | UUID | Sim | FK para tenants (NOVO) |
+
+```sql
+ALTER TABLE cargos ADD COLUMN subarea_id UUID REFERENCES subareas(id);
+ALTER TABLE cargos ADD COLUMN tenant_id UUID REFERENCES tenants(id);
+```
+
+---
+
+### tarefas (Atualizado)
+
+**Novos campos para Kanban:**
+| Campo | Tipo | Obrigatorio | Descricao |
+|-------|------|-------------|-----------|
+| kanban_column | VARCHAR(50) | Nao | Coluna do Kanban (NOVO) |
+| kanban_order | INTEGER | Nao | Ordem dentro da coluna (NOVO) |
+| tenant_id | UUID | Sim | FK para tenants (NOVO) |
+
+```sql
+ALTER TABLE tarefas ADD COLUMN kanban_column VARCHAR(50) DEFAULT 'backlog';
+ALTER TABLE tarefas ADD COLUMN kanban_order INTEGER DEFAULT 0;
+ALTER TABLE tarefas ADD COLUMN tenant_id UUID REFERENCES tenants(id);
+```
+
+---
+
+### Todas as tabelas (tenant_id)
+
+Adicionar `tenant_id` em todas as tabelas existentes:
+
+```sql
+ALTER TABLE pessoas ADD COLUMN tenant_id UUID REFERENCES tenants(id);
+ALTER TABLE projetos ADD COLUMN tenant_id UUID REFERENCES tenants(id);
+ALTER TABLE processos ADD COLUMN tenant_id UUID REFERENCES tenants(id);
+ALTER TABLE projeto_pessoas ADD COLUMN tenant_id UUID REFERENCES tenants(id);
+```
+
+---
+
+## Diagrama Entidade-Relacionamento (Original)
 
 ```
 ┌─────────────┐       ┌─────────────┐
@@ -289,3 +531,109 @@ GROUP BY p.id, c.id;
 | Indice | Atalho para buscar dados mais rapido |
 | View | Uma "tabela virtual" que combina dados de outras tabelas |
 | JSONB | Campo que guarda dados em formato JSON (flexivel) |
+| Tenant | Organizacao/marca no sistema (multi-tenant) |
+| Role | Papel de usuario (admin, manager, member) |
+
+---
+
+## Indices Adicionais (V2.0)
+
+| Tabela | Campo | Tipo | Por que |
+|--------|-------|------|---------|
+| areas | tenant_id | INDEX | Filtrar por tenant |
+| subareas | area_id | INDEX | Buscar subareas de uma area |
+| subareas | tenant_id | INDEX | Filtrar por tenant |
+| cargos | subarea_id | INDEX | Buscar cargos de uma subarea |
+| tarefas | kanban_column | INDEX | Filtrar por coluna |
+| tarefas | projeto_id | INDEX | Buscar tarefas do projeto |
+| user_roles | user_id | INDEX | Buscar roles do usuario |
+| user_roles | tenant_id | INDEX | Filtrar por tenant |
+
+---
+
+## Views Atualizadas (V2.0)
+
+### view_organograma (Atualizada)
+
+```sql
+CREATE OR REPLACE VIEW view_organograma AS
+SELECT
+  p.id,
+  p.nome,
+  p.avatar_url,
+  c.nome as cargo,
+  c.nivel,
+  p.reports_to,
+  s.nome as subarea,
+  a.nome as area,
+  a.posicao as area_posicao,
+  COUNT(DISTINCT proj.id) as projetos_ativos,
+  COUNT(DISTINCT t.id) FILTER (WHERE t.status = 'pendente') as tarefas_pendentes,
+  COUNT(DISTINCT m.id) as metas_ativas,
+  p.tenant_id
+FROM pessoas p
+JOIN cargos c ON p.cargo_id = c.id
+LEFT JOIN subareas s ON c.subarea_id = s.id
+LEFT JOIN areas a ON s.area_id = a.id
+LEFT JOIN projeto_pessoas pp ON p.id = pp.pessoa_id
+LEFT JOIN projetos proj ON pp.projeto_id = proj.id AND proj.status = 'em_andamento'
+LEFT JOIN tarefas t ON p.id = t.pessoa_id
+LEFT JOIN metas m ON p.id = m.pessoa_id AND m.status = 'em_andamento'
+WHERE p.ativo = true
+GROUP BY p.id, c.id, s.id, a.id;
+```
+
+---
+
+## Regras de Seguranca (RLS) - V2.0
+
+### Isolamento por Tenant
+
+```sql
+-- Habilitar RLS em todas as tabelas
+ALTER TABLE pessoas ENABLE ROW LEVEL SECURITY;
+ALTER TABLE cargos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE projetos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE processos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE tarefas ENABLE ROW LEVEL SECURITY;
+ALTER TABLE areas ENABLE ROW LEVEL SECURITY;
+ALTER TABLE subareas ENABLE ROW LEVEL SECURITY;
+
+-- Politica de isolamento por tenant
+CREATE POLICY "tenant_isolation" ON pessoas
+  USING (tenant_id = current_setting('app.current_tenant')::uuid);
+
+CREATE POLICY "tenant_isolation" ON projetos
+  USING (tenant_id = current_setting('app.current_tenant')::uuid);
+
+-- (Repetir para outras tabelas)
+```
+
+### Permissoes por Role
+
+```sql
+-- Funcao auxiliar para verificar role do usuario
+CREATE OR REPLACE FUNCTION auth.user_role()
+RETURNS VARCHAR AS $$
+  SELECT r.nome
+  FROM user_roles ur
+  JOIN roles r ON ur.role_id = r.id
+  WHERE ur.user_id = auth.uid()
+  LIMIT 1;
+$$ LANGUAGE SQL STABLE;
+
+-- Exemplo: Apenas admin pode editar areas
+CREATE POLICY "areas_admin_only" ON areas
+  FOR ALL TO authenticated
+  USING (auth.user_role() = 'admin' OR auth.user_role() IS NULL)
+  WITH CHECK (auth.user_role() = 'admin');
+```
+
+---
+
+## Historico de Mudancas
+
+| Data | Versao | Mudanca |
+|------|--------|---------|
+| 2026-02-20 | 2.0.0 | Adicionado suporte a multi-tenant, areas, subareas, roles |
+| 2026-02-19 | 1.0.0 | Versao inicial do modelo de dados |

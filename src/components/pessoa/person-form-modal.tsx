@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { AvatarUpload } from '@/components/ui/avatar-upload'
 import { cn } from '@/lib/utils'
 
 interface Cargo {
@@ -54,6 +55,8 @@ export function PersonFormModal({
     data_inicio: pessoa?.data_inicio || ''
   })
 
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(pessoa?.avatar_url || null)
+
   // Obter nível do cargo selecionado
   const selectedCargo = cargos.find(c => c.id === formData.cargo_id)
   const nivel = selectedCargo?.nivel || 1
@@ -84,7 +87,8 @@ export function PersonFormModal({
         nome: formData.nome,
         cargo_id: formData.cargo_id,
         reports_to: formData.reports_to || null,
-        data_inicio: formData.data_inicio || null
+        data_inicio: formData.data_inicio || null,
+        avatar_url: avatarUrl
       })
       handleClose()
     } catch (err) {
@@ -136,6 +140,17 @@ export function PersonFormModal({
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
+          {/* Avatar */}
+          <div className="flex justify-center mb-4">
+            <AvatarUpload
+              currentAvatarUrl={avatarUrl}
+              nome={formData.nome}
+              onUploadComplete={(url) => setAvatarUrl(url)}
+              onError={(error) => setError(error)}
+              size="lg"
+            />
+          </div>
+
           {/* Nome */}
           <div>
             <label className="block text-sm font-medium text-text-primary mb-1">

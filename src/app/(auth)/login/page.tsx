@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
+import Link from 'next/link'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -91,6 +92,15 @@ export default function LoginPage() {
               {error}
             </p>
           )}
+
+          <div className="flex justify-end">
+            <Link
+              href="/forgot-password"
+              className="text-sm text-accent-600 hover:text-accent-700"
+            >
+              Esqueci a senha
+            </Link>
+          </div>
 
           <Button
             type="submit"

@@ -4,8 +4,9 @@
 |-------|-------|
 | **One-liner** | Plataforma visual para CEOs e gestores enxergarem toda a empresa, projetos e processos em tempo real atraves de um organograma interativo |
 | **Owner** | [Definir] |
-| **Status** | Draft |
-| **Data** | 2026-02-19 |
+| **Status** | V2.0 - Planejamento |
+| **Data** | 2026-02-20 |
+| **Versao** | 2.0.0 |
 
 ---
 
@@ -745,3 +746,354 @@ Caracteristicas visuais identificadas:
 - Badges/icones de status
 - Conexoes visuais entre niveis
 - Layout horizontal por nivel
+
+---
+
+# VERSÃO 2.0 - Novas Funcionalidades
+
+> **Data de planejamento:** 2026-02-20
+> **Status:** Em planejamento
+
+Esta versao expande significativamente o sistema com foco em:
+1. Preparacao para Whitelabel (multi-tenant)
+2. Design System profissional
+3. Funcionalidades de RH completas
+4. Kanban de tarefas estilo Trello
+5. Sistema de permissoes granular (RBAC)
+
+---
+
+## 19. Visao de Areas e Cargos (Formato T)
+
+### Descricao
+Visualizacao da estrutura organizacional em formato de T, com tres areas principais:
+- **Esquerda (Aquisicao):** Marketing, Vendas, Comercial
+- **Direita (Entrega):** Produto, Desenvolvimento, Entrega
+- **Baixo (Operacao):** Financeiro, RH, TI, Administrativo
+
+### Regras de Negocio
+- RN1: Nomes das areas sao **configuraveis** pelo Admin
+- RN2: Estrutura em T e **fixa** (esquerda, direita, baixo)
+- RN3: Cada area pode ter ilimitadas subareas
+- RN4: Cada subarea pode ter ilimitados cargos
+- RN5: Cargos sao vinculados a subareas (tornam-se referencia para todo o sistema)
+
+### Funcionalidades
+- [ ] Visualizar estrutura em T
+- [ ] Criar/editar subareas dentro de cada area
+- [ ] Criar/editar cargos dentro de cada subarea
+- [ ] Arrastar para reordenar subareas e cargos
+- [ ] Cores visuais por subarea
+
+### Permissoes
+| Role | Ver | Criar/Edit Areas | Criar/Edit Subareas | Criar/Edit Cargos |
+|------|-----|------------------|---------------------|-------------------|
+| Admin | Sim | Sim | Sim | Sim |
+| Manager | Sim | Nao | Nao | Nao |
+| Member | Sim | Nao | Nao | Nao |
+
+---
+
+## 20. Kanban de Tarefas (Estilo Trello)
+
+### Descricao
+Sistema de Kanban para gestao de tarefas dentro de cada projeto, com drag & drop.
+
+### Regras de Negocio
+- RN1: Cada **tarefa** e um card no Kanban (nao projetos)
+- RN2: Kanban fica dentro da pagina de detalhes do projeto
+- RN3: Colunas padrao: Backlog, A Fazer, Em Andamento, Em Revisao, Concluido
+- RN4: Drag & drop permite mover tarefas entre colunas
+- RN5: Ordernacao dentro da coluna por drag & drop
+
+### Funcionalidades
+- [ ] Visualizar tarefas em colunas Kanban
+- [ ] Arrastar tarefas entre colunas
+- [ ] Reordenar tarefas dentro da coluna
+- [ ] Filtros por responsavel, prioridade, prazo
+- [ ] Visao Kanban global de todas as tarefas
+- [ ] Card mostra: titulo, responsavel, prioridade, prazo
+
+### Permissoes
+| Role | Ver | Mover Cards | Criar Tarefas | Editar Tarefas |
+|------|-----|-------------|---------------|----------------|
+| Admin | Sim | Sim | Sim | Sim |
+| Manager | Sim | Sim | Sim | Sim |
+| Member | Sim | Proprias | Proprias | Proprias |
+
+---
+
+## 21. Sistema de Permissoes (RBAC)
+
+### Descricao
+Sistema de controle de acesso baseado em roles, com gestao centralizada pelo Admin.
+
+### Regras de Negocio
+- RN1: **Apenas o Admin (CEO)** pode gerenciar permissoes
+- RN2: Roles sao pre-definidos: Admin, Manager, Member
+- RN3: Admin pode atribuir/remover roles de usuarios
+- RN4: Permissoes sao hardcoded (nao configuraveis)
+
+### Roles e Permissoes
+
+| Role | Ver Tudo | Editar Tudo | Gerenciar Pessoas | Criar/Edit Cargos | Editar Proprio |
+|------|----------|-------------|-------------------|-------------------|----------------|
+| Admin (CEO) | Sim | Sim | Sim | Sim | Sim |
+| Manager | Sim | Nao | Nao (so visualizar) | Nao | Sim |
+| Member | Sim | Nao | Nao | Nao | Sim |
+
+### Acoes Restritas (Apenas Admin)
+- Atribuir/remover roles de usuarios
+- Criar/editar areas e subareas
+- Criar/editar cargos
+- Desativar colaboradores
+- Gerenciar configuracoes do sistema
+
+### Funcionalidades
+- [ ] Pagina de gerenciamento de permissoes (so Admin)
+- [ ] Componente PermissionGuard para proteger acoes
+- [ ] Hook usePermissions() para verificacao
+- [ ] RLS atualizado no Supabase
+
+---
+
+## 22. Visao de Colaboradores com RH
+
+### Descricao
+Gestao completa de colaboradores com funcionalidades de RH.
+
+### Funcionalidades
+- [ ] Lista de colaboradores em cards visuais
+- [ ] Filtros por area, cargo, status
+- [ ] Cadastrar novos colaboradores
+- [ ] Editar dados de colaboradores
+- [ ] Desativar/reativar colaboradores
+- [ ] Upload de foto de perfil
+- [ ] Pagina de perfil pessoal (self-service)
+
+### Cards de Colaborador
+- Foto, nome, cargo
+- Area/Subarea
+- Data de admissao
+- Status (ativo/inativo)
+- Badges: projetos ativos, tarefas pendentes, metas
+
+### Permissoes
+| Role | Ver Todos | Cadastrar | Editar | Desativar |
+|------|-----------|-----------|--------|-----------|
+| Admin | Sim | Sim | Sim | Sim |
+| Manager | Sim | Nao | Nao | Nao |
+| Member | Todos | Nao | Proprio | Nao |
+
+---
+
+## 23. Organograma Aprimorado
+
+### Cards com Indicadores
+- Nome, foto, cargo (existente)
+- **NOVO:** Badge de metas
+- **NOVO:** Badge de projetos ativos
+- **NOVO:** Badge de tarefas pendentes
+- **NOVO:** Indicador de status (verde/amarelo/vermelho)
+
+### Painel Lateral Expansivel
+**Novas secoes:**
+1. Perfil - Foto grande, nome, cargo, telefone, e-mail
+2. Informacoes - Tempo de empresa, data admissao
+3. Cargo - Descricao, funcoes, metas
+4. Projetos - Lista com **progresso visual (barras)**
+5. Processos - Lista com **etapas e progresso visual**
+6. **NOVO:** Metas - Lista com status
+7. **NOVO:** Tarefas - Lista com prioridade e prazo
+
+**Funcionalidades:**
+- **NOVO:** Botao "Expandir para tela cheia"
+- Tudo clicavel (abre pagina correspondente)
+- Progresso visual (barras, badges)
+
+---
+
+## 24. Processos com Visualizacao Aprimorada
+
+### Versao Inicial (P2)
+- Etapas como cards conectados visualmente
+- Progresso visual por etapa
+- Indicador de etapa atual
+- Responsaveis por etapa com avatar
+- Tempo medio por etapa (opcional)
+
+### Futuro: BPMN Completo (P3)
+- Editor visual BPMN (bpmn-js)
+- Eventos, atividades, gateways
+- Exportar/importar XML BPMN
+
+---
+
+## 25. Preparacao Multi-Tenant (Whitelabel)
+
+### Descricao
+Preparar arquitetura para que multiplas marcas possam usar o sistema de forma isolada.
+
+### Escopo V2.0
+- Criar estrutura de tenant no banco
+- Adicionar tenant_id em todas as tabelas
+- Configurar RLS com isolamento
+- NAO implementar interface multi-tenant (futuro)
+
+### Regras de Negocio
+- RN1: Dados de um tenant nunca sao visiveis para outro
+- RN2: Cada tenant tem sua configuracao de cores/logo
+- RN3: Usuarios pertencem a um tenant especifico
+
+---
+
+## 26. Design System Profissional
+
+**Status:** Em andamento
+
+### Fonte Canonica
+- **Arquivo:** `src/design/tokens.ts`
+- **Documentacao:** `docs/DESIGN/`
+
+### Tokens de Design (3 Niveis)
+1. **Primitivos:** Valores brutos (`--accent-600: #7C3AED`)
+2. **Semanticos:** Aliases (`--foreground`, `--background`, `--card`)
+3. **Componentes:** Especificos (`--color-button-bg-primary`)
+
+### Paleta Implementada
+```css
+/* Light Mode */
+--background: #F8F9FA;
+--foreground: #1F2937;
+--card: #FFFFFF;
+--muted: #F3F4F6;
+
+/* Dark Mode */
+--background: #111827;
+--foreground: #F9FAFB;
+--card: #1F2937;
+--muted: #374151;
+
+/* Accent (Violet) */
+accent-600: #7C3AED;  /* Primary action */
+accent-700: #6D28D9;  /* Hover */
+```
+
+### Componentes Refatorados (Dark Mode)
+- [x] Card - usa CSS variables
+- [x] Input - usa CSS variables
+- [x] StatusBadge - dark mode variants
+- [ ] Button - pendente tokens
+- [ ] Avatar - pendente tokens
+- [ ] person-card - pendente
+- [ ] person-panel - pendente
+- [ ] sidebar - pendente
+
+### Componentes a Criar
+- [ ] ProgressBar visual
+- [ ] Timeline
+- [ ] Tabs
+- [ ] Breadcrumbs
+- [ ] SidePanel expansivel
+
+### Tipografia
+- Fonte: Inter (Google Fonts) - implementada
+- Hierarquia: h1-h6, body, small
+
+---
+
+## 27. Esqueci a Senha
+
+### Descricao
+Fluxo completo de recuperacao de senha funcional com Supabase.
+
+### Funcionalidades
+- [ ] Pagina `/auth/forgot-password`
+- [ ] Pagina `/auth/reset-password`
+- [ ] Email de recuperacao
+- [ ] Redefinicao de senha
+
+### Fluxo
+1. Usuario clica em "Esqueci a senha"
+2. Digita email
+3. Recebe email com link
+4. Clica no link
+5. Define nova senha
+6. Faz login
+
+---
+
+## 28. Navegacao e Rotas
+
+### Nova Estrutura da Sidebar
+
+```
+SECAO: VISAO GERAL
+├── Dashboard (NOVO)
+├── Organograma
+└── Areas e Cargos (NOVO)
+
+SECAO: GESTAO
+├── Colaboradores (NOVO)
+├── Projetos
+├── Processos
+└── Tarefas (NOVO)
+```
+
+### Rotas Planejadas
+
+| Rota | Descricao |
+|------|-----------|
+| `/` | Redirect para /dashboard |
+| `/dashboard` | Dashboard principal |
+| `/organograma` | Organograma visual |
+| `/areas-cargos` | Visao T de areas e cargos |
+| `/colaboradores` | Lista de colaboradores |
+| `/projetos` | Lista de projetos |
+| `/projetos/[id]` | Detalhes + Kanban de tarefas |
+| `/processos` | Lista de processos |
+| `/processos/[id]` | Detalhes do processo |
+| `/tarefas` | Lista de tarefas |
+| `/tarefas/kanban` | Kanban global |
+| `/perfil` | Perfil do usuario logado |
+| `/auth/forgot-password` | Esqueci senha |
+| `/auth/reset-password` | Redefinir senha |
+
+### Padroes de UI
+- Clique em nome de pessoa → painel lateral (nao navegar)
+- Painel lateral → opcao de expandir para tela cheia
+- Navegacao fluida com transicoes
+
+---
+
+## 29. Escopo Atualizado
+
+### MUST (V2.0)
+- [ ] Sistema de permissoes RBAC
+- [ ] Visao de areas e cargos em T
+- [ ] Kanban de tarefas nos projetos
+- [ ] Esqueci a senha
+- [ ] Foto de perfil do colaborador
+- [ ] Sidebar reorganizada
+
+### SHOULD (V2.0)
+- [ ] Preparacao multi-tenant
+- [ ] Design System profissional
+- [ ] Organograma aprimorado
+- [ ] Visao de colaboradores completa
+- [ ] Processos com visual melhorada
+
+### COULD (Futuro)
+- [ ] BPMN visual completo
+- [ ] Multi-tenant com interface
+- [ ] Integracao com ferramentas externas
+- [ ] Notificacoes push
+
+---
+
+## 30. Historico de Versoes
+
+| Versao | Data | Mudancas |
+|--------|------|----------|
+| 1.0.0 | 2026-02-19 | Versao inicial MVP |
+| 2.0.0 | 2026-02-20 | Planejamento V2 - areas, kanban, permissoes, RH |

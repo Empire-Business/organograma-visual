@@ -40,6 +40,61 @@ Este documento define a identidade visual do sistema de Organograma Visual.
 |---------|----------|
 | [tokens.md](tokens.md) | Cores, tipografia, espacamento, sombras |
 | [componentes.md](componentes.md) | Padroes de UI: cards, botoes, painel, etc |
+| [components.md](components.md) | Componentes UI com props e exemplos |
+
+---
+
+## Tokens Centralizados
+
+Fonte canônica: `src/design/tokens.ts`
+
+```tsx
+import { tokens } from '@/design/tokens'
+
+// Usar tokens programaticamente
+const primaryColor = tokens.colors.accent[600]
+const fontFamily = tokens.typography.fontFamily.sans
+```
+
+---
+
+## Dark Mode
+
+O projeto suporta dark mode via CSS variables e classe `.dark`.
+
+### CSS Variables
+
+```css
+:root {
+  --background: #F8F9FA;
+  --foreground: #1F2937;
+  --card: #FFFFFF;
+  --card-foreground: #1F2937;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
+  --border: #E5E7EB;
+}
+
+.dark {
+  --background: #111827;
+  --foreground: #F9FAFB;
+  --card: #1F2937;
+  --card-foreground: #F9FAFB;
+  --muted: #374151;
+  --muted-foreground: #9CA3AF;
+  --border: #374151;
+}
+```
+
+### Uso em Componentes
+
+```tsx
+// Preferido: usar CSS variables
+<div className="bg-[var(--card)] text-[var(--foreground)]">
+
+// Alternativa: classes dark:
+<div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+```
 
 ---
 

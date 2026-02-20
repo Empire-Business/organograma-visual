@@ -21,6 +21,7 @@ Antes de executar qualquer comando `*`, leia nesta ordem:
 3. Em qualquer bloqueio acima, executar fluxo de `*sincronizar`.
 4. Atualizações relevantes devem registrar documentação em `docs/`.
 5. `*garantir` é o único comando que aprova mudança para produção.
+6. **TODO DESIGN DEVE SER TOKENIZADO** - Nenhum componente pode usar cores, espaçamentos, ou valores hardcoded. Usar sempre tokens de `src/design/tokens.ts` ou CSS variables.
 
 ## Fluxo Base para Comandos `*`
 

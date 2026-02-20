@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { ThemeToggle } from './theme-toggle'
+import { SidebarSection } from './sidebar-section'
 
 interface SidebarProps {
   userEmail?: string
@@ -28,11 +29,20 @@ export function Sidebar({ userEmail }: SidebarProps) {
     const newValue = !isExpanded
     setIsExpanded(newValue)
     localStorage.setItem('sidebar-expanded', String(newValue))
-    // Dispatch custom event for MainContent to listen
     window.dispatchEvent(new CustomEvent('sidebar-toggle', { detail: { expanded: newValue } }))
   }
 
-  const navItems = [
+  // Itens da secao Visao Geral
+  const visaoGeralItems = [
+    {
+      href: '/dashboard',
+      label: 'Dashboard',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+      )
+    },
     {
       href: '/organograma',
       label: 'Organograma',
@@ -41,6 +51,30 @@ export function Sidebar({ userEmail }: SidebarProps) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
         </svg>
       )
+    },
+    {
+      href: '/areas-cargos',
+      label: 'Areas e Cargos',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+        </svg>
+      ),
+      disabled: true // Placeholder ate implementar
+    }
+  ]
+
+  // Itens da secao Gestao
+  const gestaoItems = [
+    {
+      href: '/colaboradores',
+      label: 'Colaboradores',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      ),
+      disabled: true // Placeholder ate implementar
     },
     {
       href: '/projetos',
@@ -59,8 +93,67 @@ export function Sidebar({ userEmail }: SidebarProps) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
         </svg>
       )
+    },
+    {
+      href: '/tarefas',
+      label: 'Tarefas',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        </svg>
+      ),
+      disabled: true // Placeholder ate implementar
     }
   ]
+
+  const renderNavItem = (item: typeof visaoGeralItems[0]) => {
+    const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+
+    if (item.disabled) {
+      return (
+        <div
+          key={item.href}
+          className={cn(
+            'flex items-center gap-3 px-3 py-2.5 rounded-lg',
+            'text-gray-400 dark:text-gray-600 cursor-not-allowed',
+            !isExpanded && !isMobileOpen && 'justify-center px-2'
+          )}
+          title={!isExpanded && !isMobileOpen ? item.label : undefined}
+        >
+          <span className="shrink-0 opacity-50">{item.icon}</span>
+          {(isExpanded || isMobileOpen) && (
+            <span className="text-sm font-medium whitespace-nowrap">{item.label}</span>
+          )}
+          {(isExpanded || isMobileOpen) && (
+            <span className="ml-auto text-xs bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
+              em breve
+            </span>
+          )}
+        </div>
+      )
+    }
+
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        onClick={() => setIsMobileOpen(false)}
+        className={cn(
+          'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
+          isActive
+            ? 'bg-accent-50 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400'
+            : 'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
+          !isExpanded && !isMobileOpen && 'justify-center px-2'
+        )}
+        title={!isExpanded && !isMobileOpen ? item.label : undefined}
+      >
+        <span className="shrink-0">{item.icon}</span>
+        {(isExpanded || isMobileOpen) && (
+          <span className="text-sm font-medium whitespace-nowrap">{item.label}</span>
+        )}
+      </Link>
+    )
+  }
 
   return (
     <>
@@ -87,10 +180,8 @@ export function Sidebar({ userEmail }: SidebarProps) {
         className={cn(
           'fixed left-0 top-0 h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-40',
           'transition-all duration-200 flex flex-col',
-          // Desktop
           'hidden md:flex',
           isExpanded ? 'w-60' : 'w-16',
-          // Mobile
           'md:translate-x-0',
           isMobileOpen ? 'translate-x-0 flex w-60' : '-translate-x-full'
         )}
@@ -114,30 +205,26 @@ export function Sidebar({ userEmail }: SidebarProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsMobileOpen(false)}
-                className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-                  isActive
-                    ? 'bg-accent-50 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400'
-                    : 'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
-                  !isExpanded && !isMobileOpen && 'justify-center px-2'
-                )}
-                title={!isExpanded && !isMobileOpen ? item.label : undefined}
-              >
-                <span className="shrink-0">{item.icon}</span>
-                {(isExpanded || isMobileOpen) && (
-                  <span className="text-sm font-medium whitespace-nowrap">{item.label}</span>
-                )}
-              </Link>
-            )
-          })}
+        <nav className="flex-1 p-2 overflow-y-auto">
+          {/* Secao: Visao Geral */}
+          <SidebarSection
+            title="Visao Geral"
+            isExpanded={isExpanded}
+            isMobileOpen={isMobileOpen}
+            storageKey="visao-geral"
+          >
+            {visaoGeralItems.map(renderNavItem)}
+          </SidebarSection>
+
+          {/* Secao: Gestao */}
+          <SidebarSection
+            title="Gestao"
+            isExpanded={isExpanded}
+            isMobileOpen={isMobileOpen}
+            storageKey="gestao"
+          >
+            {gestaoItems.map(renderNavItem)}
+          </SidebarSection>
         </nav>
 
         {/* Footer */}
@@ -148,6 +235,27 @@ export function Sidebar({ userEmail }: SidebarProps) {
               {userEmail}
             </div>
           )}
+
+          {/* Perfil */}
+          <Link
+            href="/perfil"
+            onClick={() => setIsMobileOpen(false)}
+            className={cn(
+              'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
+              pathname === '/perfil'
+                ? 'bg-accent-50 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400'
+                : 'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
+              !isExpanded && !isMobileOpen && 'justify-center px-2'
+            )}
+            title={!isExpanded && !isMobileOpen ? 'Meu Perfil' : undefined}
+          >
+            <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            {(isExpanded || isMobileOpen) && (
+              <span className="text-sm font-medium whitespace-nowrap">Meu Perfil</span>
+            )}
+          </Link>
 
           {/* Theme toggle */}
           <ThemeToggle />

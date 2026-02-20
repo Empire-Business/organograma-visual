@@ -17,7 +17,9 @@ export function Card({ children, className, padding = 'md', onClick }: CardProps
   return (
     <div
       className={cn(
-        'bg-white rounded-xl border border-gray-200 shadow-card',
+        'rounded-xl shadow-card',
+        'bg-[var(--card)] border border-[var(--border)]',
+        'text-[var(--card-foreground)]',
         'transition-all duration-200',
         onClick && 'cursor-pointer hover:shadow-md hover:-translate-y-0.5',
         paddings[padding],

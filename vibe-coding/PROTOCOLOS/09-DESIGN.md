@@ -7,6 +7,26 @@ Execute conforme as regras definidas no CLAUDE.md e em COMUNICACAO.md.
 
 # Protocolo de Design System (*design)
 
+## REGRA FUNDAMENTAL
+
+> **TODO DESIGN DEVE SER TOKENIZADO.**
+>
+> Nenhum componente pode usar valores hardcoded de cores, espaçamentos, tamanhos, sombras ou border-radius.
+>
+> **SEMPRE usar:**
+> - Tokens de `src/design/tokens.ts` (fonte canônica TypeScript)
+> - CSS Variables de `globals.css` (para theming)
+> - Classes Tailwind que referenciem tokens
+>
+> **NUNCA usar:**
+> - Cores hexadecimais diretas (`#3B82F6`)
+> - Valores de spacing hardcoded (`16px`, `1rem`)
+> - Valores mágicos sem token
+>
+> Esta é uma **REGRA DURA** do sistema (ver CLAUDE.md).
+
+---
+
 ## Quando Usar
 
 - Criando componentes visuais
@@ -315,29 +335,41 @@ function ThemeToggle() {
 ### Antes de criar componente:
 
 ```
-□ Defini as cores (primary, secondary, etc)
-□ Defini a tipografia (fontes, tamanhos)
-□ Defini espaçamentos consistentes
-□ Defini border radius padrão
-□ Defini sombras (se necessário)
+□ Defini as cores usando tokens (accent-*, success, etc)
+□ Defini a tipografia usando escala (text-sm, text-base, etc)
+□ Defini espaçamentos usando escala Tailwind (p-4, gap-4, etc)
+□ Defini border radius usando tokens (rounded-lg, rounded-xl)
+□ Defini sombras usando tokens (shadow-card, shadow-panel)
 ```
 
 ### Ao criar componente:
 
 ```
-□ Usa tokens do design system
+□ Usa APENAS tokens do design system (sem hardcoded values)
+□ Usa CSS variables para cores que mudam em dark mode
 □ Tem variantes (primary, secondary, etc)
 □ Tem tamanhos (sm, md, lg)
 □ Tem estados (hover, focus, disabled, error)
-□ Funciona em dark mode (se aplicável)
+□ Funciona em dark mode
 □ É responsivo (mobile-first)
+```
+
+### Validação Obrigatória (BLOQUEANTE):
+
+```
+□ Nenhuma cor hexadecimal hardcoded (ex: #3B82F6) → USE accent-500
+□ Nenhum spacing hardcoded (ex: 16px) → USE p-4 ou gap-4
+□ Nenhum border-radius hardcoded (ex: 12px) → USE rounded-xl
+□ Nenhuma sombra hardcoded (ex: 0 1px 3px...) → USE shadow-card
+□ Componente funciona em dark mode
 ```
 
 ### Antes de aprovar:
 
 ```
+□ Passou na validação de tokenização
 □ Consistente com resto do app
-□ Cores seguem padrão
+□ Cores seguem padrão de tokens
 □ Tipografia consistente
 □ Espaçamentos uniformes
 □ Bordas arredondadas consistentes

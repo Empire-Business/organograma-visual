@@ -6,6 +6,9 @@ Este documento descreve COMO o projeto sera construido tecnicamente.
 
 Para O QUE estamos construindo, consulte `docs/PRD.md`.
 
+**Versao:** 2.0
+**Ultima atualizacao:** 2026-02-20
+
 ---
 
 ## Stack Tecnologica
@@ -21,6 +24,33 @@ Consulte `stack.md` para detalhes completos.
 | Banco | PostgreSQL (via Supabase) | Relacional, robusto, RLS nativo |
 | Auth | Supabase Auth (email/senha) | Integrado com banco, seguro |
 | Deploy | Vercel | Otimo para Next.js, deploy automatico |
+| Drag & Drop | @atlaskit/pragmatic-drag-and-drop | Usado pelo Trello/Jira |
+| Icones | Material Symbols Outlined | Consistente e moderno |
+
+---
+
+## Novidades V2.0
+
+| Feature | Descricao |
+|---------|-----------|
+| Multi-Tenant | Preparacao para whitelabel |
+| Areas/Subareas | Estrutura organizacional em T |
+| RBAC | Sistema de permissoes por role |
+| Kanban | Drag & drop de tarefas |
+| Design System | Tokens de design profissionais |
+
+---
+
+## Decisoes Principais
+
+| Decisao | Escolha | Alternativas consideradas |
+|---------|---------|---------------------------|
+| Monolito vs Microservicos | Monolito (Supabase) | Microservicos - complexidade desnecessaria para <50 usuarios |
+| SSR vs CSR | SSR (Next.js) | CSR puro - SEO e performance inicial inferiores |
+| Banco relacional vs NoSQL | PostgreSQL | MongoDB - dados tem relacionamentos claros |
+| Auth terceirizado vs proprio | Supabase Auth | NextAuth, JWT proprio - mais trabalho, menos seguro |
+| Kanban library | @atlaskit/pragmatic-drag-and-drop | react-dnd, react-beautiful-dnd |
+| BPMN (futuro) | bpmn-js | Solucao propria - muito trabalho |
 
 ---
 
@@ -113,8 +143,9 @@ gestao-projetos/
 |-----------|--------|---------|
 | PRD | ✅ | docs/PRD.md |
 | Arquitetura | ✅ | docs/ARQUITETURA/ |
-| Roadmap | ❌ | docs/ROADMAP.md |
-| Design | ❌ | docs/DESIGN/ |
+| Roadmap | ✅ | docs/ROADMAP.md |
+| Design | ✅ | docs/DESIGN/ |
+| Tokens | ✅ | src/design/tokens.ts |
 
 > 🔒 Complete todos os pre-requisitos antes de `*desenvolver`.
 

@@ -38,7 +38,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Rotas públicas
-  const publicPaths = ['/login', '/auth/callback']
+  const publicPaths = ['/login', '/auth/callback', '/forgot-password', '/reset-password']
   const isPublicPath = publicPaths.some(path => pathname.startsWith(path))
 
   // Se não está logado e tenta acessar rota protegida
