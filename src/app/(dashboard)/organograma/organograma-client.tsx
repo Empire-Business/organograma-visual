@@ -151,14 +151,14 @@ export function OrganogramaClient({ pessoas: initialPessoas, cargos: initialCarg
 
   return (
     <main className="min-h-screen bg-bg-page">
-      <div className="p-6">
-        <header className="mb-8">
+      <div className="p-4 sm:p-6">
+        <header className="mb-6 sm:mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-text-primary">
+              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">
                 Organograma
               </h1>
-              <p className="text-text-secondary mt-1">
+              <p className="text-text-secondary mt-1 text-sm sm:text-base">
                 Visualize a estrutura da sua empresa
               </p>
             </div>
@@ -197,7 +197,7 @@ export function OrganogramaClient({ pessoas: initialPessoas, cargos: initialCarg
           </div>
 
           {/* Barra de busca */}
-          <div className="mt-6 max-w-md">
+          <div className="mt-6 max-w-md w-full">
             <div className="relative">
               <svg
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
@@ -212,7 +212,7 @@ export function OrganogramaClient({ pessoas: initialPessoas, cargos: initialCarg
                 placeholder="Buscar por nome ou cargo..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 pr-10"
               />
               {searchQuery && (
                 <button

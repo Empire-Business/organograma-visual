@@ -252,7 +252,7 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 | PL6.6 | Historico de projetos entregues | P1 | S | [ ] |
 | PL6.7 | Animacoes e transicoes | P2 | S | [ ] |
 | PL6.8 | Modo escuro | P2 | S | [ ] |
-| PL6.9 | Responsividade completa | P1 | M | [ ] |
+| PL6.9 | Responsividade completa | P1 | M | [x] |
 
 ### Criterios de Conclusao
 
@@ -260,7 +260,7 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 - [ ] Filtros funcionam
 - [x] Busca funciona
 - [x] Zoom funciona
-- [ ] App responsivo
+- [x] App responsivo
 
 ---
 
@@ -329,6 +329,7 @@ Funcionalidades COULD do PRD - sem data definida.
 
 | Data | Versao | Mudanca |
 |------|--------|---------|
+| 2026-02-19 | 1.4.0 | Marca PL6.9 - Responsividade completa |
 | 2026-02-19 | 1.3.0 | Marca PL6.4 - Níveis de zoom como completo |
 | 2026-02-19 | 1.2.0 | Marca PL6.3 - Busca por nome/cargo como completa |
 | 2026-02-19 | 1.1.0 | Adiciona PL6.1 - Sidebar lateral colapsável |

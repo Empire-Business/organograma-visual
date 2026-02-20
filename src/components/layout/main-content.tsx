@@ -30,7 +30,7 @@ export function MainContent({ children }: MainContentProps) {
 
   return (
     <main
-      className={`min-h-screen transition-all duration-200 ${
+      className={`min-h-screen transition-all duration-200 pt-14 md:pt-0 ${
         sidebarExpanded ? 'md:pl-60' : 'md:pl-16'
       }`}
     >

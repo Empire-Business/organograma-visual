@@ -148,14 +148,14 @@ export function ProjetosClient({ projetos: initialProjetos, pessoas }: ProjetosC
 
   return (
     <main className="min-h-screen bg-bg-page">
-      <div className="p-6">
-        <header className="mb-8">
+      <div className="p-4 sm:p-6">
+        <header className="mb-6 sm:mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-text-primary">
+              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">
                 Projetos
               </h1>
-              <p className="text-text-secondary mt-1">
+              <p className="text-text-secondary mt-1 text-sm sm:text-base">
                 Gerencie os projetos da empresa
               </p>
             </div>

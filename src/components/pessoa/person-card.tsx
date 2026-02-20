@@ -30,7 +30,7 @@ export function PersonCard({
     <div
       onClick={onClick}
       className={cn(
-        'w-[200px] p-4 bg-white rounded-xl shadow-card',
+        'w-[180px] sm:w-[200px] p-3 sm:p-4 bg-white rounded-xl shadow-card',
         'cursor-pointer transition-all duration-200',
         'hover:shadow-md hover:-translate-y-0.5',
         'border-2',
