@@ -7,7 +7,10 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/)
 - [nova funcionalidade]
 
 ### Changed
-- [mudança em funcionalidade existente]
+- **2026-02-19**: Navegação transformada de barra superior horizontal para barra lateral esquerda vertical colapsável
+  - Antes: Header fixo no topo com navegação horizontal
+  - Depois: Sidebar lateral esquerda com toggle de abrir/fechar
+  - Benefícios: Mais espaço horizontal para conteúdo, navegação mais acessível, padrão moderno de dashboards
 
 ### Fixed
 - [bug corrigido]

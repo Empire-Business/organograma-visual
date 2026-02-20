@@ -433,7 +433,131 @@ stroke-width: 1px;
 
 ---
 
-## 12. Mensagem de Erro
+## 12. Sidebar Navegação
+
+Barra lateral esquerda colapsável para navegação principal.
+
+### Estrutura Visual (Expandida)
+
+```
+┌──────────────────────┐
+│  ○  Organograma      │  ← Logo + Nome
+│  ─────────────────── │
+│                      │
+│  □  Organograma      │  ← Nav item (ativo)
+│  □  Projetos         │
+│  □  Processos        │
+│                      │
+│  ─────────────────── │
+│                      │
+│  □  Sair             │  ← User actions
+│  ─────────────────── │
+│  ◀  Recolher         │  ← Toggle button
+└──────────────────────┘
+```
+
+### Estrutura Visual (Colapsada)
+
+```
+┌──────┐
+│  ○   │
+│  ──  │
+│      │
+│  □   │
+│  □   │
+│  □   │
+│      │
+│  ──  │
+│      │
+│  □   │
+│  ──  │
+│  ▶   │
+└──────┘
+```
+
+### Especificacoes
+
+| Propriedade | Expandido | Colapsado |
+|-------------|-----------|-----------|
+| Largura | 240px | 64px |
+| Background | #FFFFFF | #FFFFFF |
+| Border Right | 1px solid #E5E7EB | 1px solid #E5E7EB |
+| Padding | 16px | 8px |
+| Posicao | fixed, left-0, top-0 | fixed, left-0, top-0 |
+| Altura | 100vh | 100vh |
+| Z-index | 40 | 40 |
+
+### Animacao de Transicao
+
+```css
+transition: width 200ms ease-in-out;
+```
+
+### Nav Items
+
+| Propriedade | Valor |
+|-------------|-------|
+| Padding (expandido) | 12px 16px |
+| Padding (colapsado) | 12px |
+| Border Radius | 8px |
+| Hover Background | #F3F4F6 |
+| Active Background | #EDE9FE (accent-50) |
+| Active Text | #7C3AED (accent-600) |
+| Icon Size | 20px |
+| Gap (expandido) | 12px |
+| Gap (colapsado) | 0 |
+
+### Comportamento
+
+| Comportamento | Descricao |
+|---------------|-----------|
+| Toggle | Botao no rodape expande/recolhe sidebar |
+| Estado persistido | Salvar preferencia em localStorage |
+| Mobile | Sempre colapsada por default, overlay quando expandida |
+| Responsividade | < 768px: comportamento overlay |
+
+### Codigo Base (Estrutura)
+
+```tsx
+<div className={cn(
+  "fixed left-0 top-0 h-full bg-white border-r transition-all duration-200 z-40",
+  isExpanded ? "w-60" : "w-16"
+)}>
+  {/* Logo */}
+  <div className="p-4 border-b">
+    <Link href="/organograma" className="flex items-center gap-3">
+      <div className="w-8 h-8 bg-accent-600 rounded-lg flex items-center justify-center">
+        <span className="text-white font-bold text-sm">O</span>
+      </div>
+      {isExpanded && <span className="font-semibold">Organograma</span>}
+    </Link>
+  </div>
+
+  {/* Nav Items */}
+  <nav className="flex-1 p-2">
+    <NavLink href="/organograma" icon={<HomeIcon />} expanded={isExpanded}>
+      Organograma
+    </NavLink>
+    <NavLink href="/projetos" icon={<FolderIcon />} expanded={isExpanded}>
+      Projetos
+    </NavLink>
+    <NavLink href="/processos" icon={<ClipboardIcon />} expanded={isExpanded}>
+      Processos
+    </NavLink>
+  </nav>
+
+  {/* Footer */}
+  <div className="p-2 border-t">
+    <button onClick={toggle} className="w-full p-3 hover:bg-gray-100 rounded-lg">
+      {isExpanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+    </button>
+  </div>
+</div>
+```
+
+---
+
+## 13. Mensagem de Erro
 
 ### Estrutura
 
