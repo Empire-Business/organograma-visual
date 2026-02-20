@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Avatar } from '@/components/ui/avatar'
+import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
 import { getPessoaDetalhes } from '@/lib/actions/pessoas'
 
@@ -108,6 +110,7 @@ function getStatusLabel(status: string): string {
 
 export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
   const [detalhes, setDetalhes] = useState<PessoaDetalhes | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -158,12 +161,16 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
       {/* Painel */}
       <div
         className={cn(
-          'fixed right-0 top-0 h-full w-[450px] shadow-panel z-50',
-          'transform transition-transform duration-300 ease-out',
+          'fixed shadow-panel z-50',
+          'transform transition-all duration-300 ease-out',
           'overflow-y-auto',
           // Dark mode support
           'bg-[var(--card)]',
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+          isFullscreen
+            ? 'inset-4 rounded-2xl'
+            : 'right-0 top-0 h-full w-[450px]',
+          !isFullscreen && (isOpen ? 'translate-x-0' : 'translate-x-full'),
+          isFullscreen && (isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95')
         )}
       >
         {/* Header */}
@@ -172,17 +179,39 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
           'bg-[var(--card)] border-[var(--border)]'
         )}>
           <h2 className="font-semibold text-[var(--foreground)]">Detalhes</h2>
-          <button
-            onClick={handleClose}
-            className={cn(
-              'p-2 rounded-lg transition-colors',
-              'hover:bg-[var(--muted)] text-[var(--muted-foreground)]'
-            )}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-1">
+            {/* Botão Expandir */}
+            <button
+              onClick={() => setIsFullscreen(!isFullscreen)}
+              className={cn(
+                'p-2 rounded-lg transition-colors',
+                'hover:bg-[var(--muted)] text-[var(--muted-foreground)]'
+              )}
+              title={isFullscreen ? 'Restaurar' : 'Expandir'}
+            >
+              {isFullscreen ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                </svg>
+              )}
+            </button>
+            {/* Botão Fechar */}
+            <button
+              onClick={handleClose}
+              className={cn(
+                'p-2 rounded-lg transition-colors',
+                'hover:bg-[var(--muted)] text-[var(--muted-foreground)]'
+              )}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Conteúdo */}
@@ -283,10 +312,11 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                   </h4>
                   <div className="space-y-3">
                     {detalhes.projetos.map((projeto) => (
-                      <div
+                      <Link
                         key={projeto.id}
+                        href={`/projetos/${projeto.id}`}
                         className={cn(
-                          'p-3 rounded-lg transition-colors cursor-pointer',
+                          'block p-3 rounded-lg transition-colors',
                           'bg-[var(--muted)] hover:bg-[var(--border)]'
                         )}
                       >
@@ -311,15 +341,15 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                         </div>
                         {projeto.progresso !== undefined && projeto.progresso > 0 && (
                           <div className="mt-2">
-                            <div className="h-1.5 bg-[var(--border)] rounded-full overflow-hidden">
-                              <div
-                                className="h-full bg-accent-500 rounded-full transition-all"
-                                style={{ width: `${projeto.progresso}%` }}
-                              />
-                            </div>
+                            <Progress
+                              value={projeto.progresso}
+                              size="sm"
+                              showLabel
+                              className="h-1.5"
+                            />
                           </div>
                         )}
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -333,10 +363,11 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                   </h4>
                   <div className="space-y-3">
                     {detalhes.processos.map((processo) => (
-                      <div
+                      <Link
                         key={processo.id}
+                        href={`/processos/${processo.id}`}
                         className={cn(
-                          'p-3 rounded-lg transition-colors cursor-pointer',
+                          'block p-3 rounded-lg transition-colors',
                           'bg-[var(--muted)] hover:bg-[var(--border)]'
                         )}
                       >
@@ -372,7 +403,7 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                             )}
                           </div>
                         )}
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
