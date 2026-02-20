@@ -47,6 +47,7 @@
 | 11 | Organograma Aprimorado V2 | P0 | L | [x] Completo |
 | 12 | Kanban Trello-Style | P0 | L | [x] Completo |
 | 12B | Kanban Aprimorado (Melhorias Trello) | P0 | M | [x] Completo |
+| 12C | Kanban Card Rico e Clicavel | P0 | M | [x] Completo (2026-02-20) |
 | 13 | Areas e Cargos (Formato T) | P0 | L | [x] Completo (com CRUD) |
 | 14 | Colaboradores + RH | P0 | L | [x] Completo |
 | 15 | Permissoes (RBAC) | P0 | M | [x] Completo |
@@ -768,7 +769,7 @@
 
 | Data | Versao | Mudanca |
 |------|--------|---------|
-| 2026-02-20 | 2.0.3 | Integração Áreas-Cargos como fonte autoritativa: Organograma, Colaboradores e Processos agora filtram apenas cargos com subarea_id (definidos em /areas-cargos). View view_organograma atualizada para filtrar pessoas com cargos válidos. |
+| 2026-02-20 | 2.0.3 | Remove dados de exemplo do organograma. Busca dados reais do banco. Páginas mostram todos os cargos existentes (compatibilidade). Recomenda-se cadastrar cargos em /areas-cargos com subarea_id. |
 | 2026-02-20 | 2.0.2 | Fase 13 completa: CRUD de subáreas e cargos implementado na página /areas-cargos. Usuários podem criar/editar/excluir subáreas e cargos vinculados. Políticas RLS atualizadas para permitir insert de usuários autenticados. |
 | 2026-02-20 | 2.0.1 | Atualizacao de status real: Fases 9, 10, 12, 13, 14, 16, 17 marcadas como completas. Fases 7, 11, 15, 18 parciais. Apenas Fase 8 pendente. |
 | 2026-02-20 | 2.0.0 | Atualizacao completa com todas as funcionalidades do Pedido.md: Multi-tenant, Design System V2, Esqueci senha, Foto perfil, Sidebar reorganizada, Dashboard, Organograma V2, Kanban, Areas/Cargos T, Colaboradores RH, RBAC, Processos BPM, Tarefas, Navegacao clicavel |
