@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Avatar } from '@/components/ui/avatar'
 import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
@@ -311,10 +312,11 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                   </h4>
                   <div className="space-y-3">
                     {detalhes.projetos.map((projeto) => (
-                      <div
+                      <Link
                         key={projeto.id}
+                        href={`/projetos/${projeto.id}`}
                         className={cn(
-                          'p-3 rounded-lg transition-colors',
+                          'block p-3 rounded-lg transition-colors',
                           'bg-[var(--muted)] hover:bg-[var(--border)]'
                         )}
                       >
@@ -347,7 +349,7 @@ export function PersonPanel({ pessoa, onClose, onEdit, onDelete }: PersonPanelPr
                             />
                           </div>
                         )}
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
