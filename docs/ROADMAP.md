@@ -251,7 +251,7 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 | PL6.5 | Exportar visualizacao como imagem | P1 | M | [ ] |
 | PL6.6 | Historico de projetos entregues | P1 | S | [x] |
 | PL6.7 | Animacoes e transicoes | P2 | S | [x] |
-| PL6.8 | Modo escuro | P2 | S | [ ] |
+| PL6.8 | Modo escuro | P2 | S | [x] |
 | PL6.9 | Responsividade completa | P1 | M | [x] |
 
 ### Criterios de Conclusao
@@ -329,6 +329,7 @@ Funcionalidades COULD do PRD - sem data definida.
 
 | Data | Versao | Mudanca |
 |------|--------|---------|
+| 2026-02-19 | 1.7.0 | Marca PL6.8 - Modo escuro |
 | 2026-02-19 | 1.6.0 | Marca PL6.7 - Animações e transições |
 | 2026-02-19 | 1.5.0 | Marca PL6.6 - Histórico de projetos entregues |
 | 2026-02-19 | 1.4.0 | Marca PL6.9 - Responsividade completa |

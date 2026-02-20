@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { ThemeToggle } from './theme-toggle'
 
 interface SidebarProps {
   userEmail?: string
@@ -74,9 +75,9 @@ export function Sidebar({ userEmail }: SidebarProps) {
       {/* Mobile hamburger button */}
       <button
         onClick={() => setIsMobileOpen(true)}
-        className="fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-md md:hidden"
+        className="fixed top-4 left-4 z-50 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md md:hidden"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
@@ -84,7 +85,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed left-0 top-0 h-full bg-white border-r border-gray-200 z-40',
+          'fixed left-0 top-0 h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-40',
           'transition-all duration-200 flex flex-col',
           // Desktop
           'hidden md:flex',
@@ -95,7 +96,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
         )}
       >
         {/* Logo */}
-        <div className="p-4 border-b border-gray-100">
+        <div className="p-4 border-b border-gray-100 dark:border-gray-800">
           <Link
             href="/organograma"
             className="flex items-center gap-3"
@@ -105,7 +106,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
               <span className="text-white font-bold text-sm">O</span>
             </div>
             {(isExpanded || isMobileOpen) && (
-              <span className="font-semibold text-text-primary whitespace-nowrap">
+              <span className="font-semibold text-text-primary dark:text-white whitespace-nowrap">
                 Organograma
               </span>
             )}
@@ -124,8 +125,8 @@ export function Sidebar({ userEmail }: SidebarProps) {
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
                   isActive
-                    ? 'bg-accent-50 text-accent-600'
-                    : 'text-text-secondary hover:bg-gray-100 hover:text-text-primary',
+                    ? 'bg-accent-50 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400'
+                    : 'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
                   !isExpanded && !isMobileOpen && 'justify-center px-2'
                 )}
                 title={!isExpanded && !isMobileOpen ? item.label : undefined}
@@ -140,13 +141,16 @@ export function Sidebar({ userEmail }: SidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="p-2 border-t border-gray-100 space-y-1">
+        <div className="p-2 border-t border-gray-100 dark:border-gray-800 space-y-1">
           {/* User info */}
           {(isExpanded || isMobileOpen) && userEmail && (
-            <div className="px-3 py-2 text-xs text-text-muted truncate">
+            <div className="px-3 py-2 text-xs text-text-muted dark:text-gray-500 truncate">
               {userEmail}
             </div>
           )}
+
+          {/* Theme toggle */}
+          <ThemeToggle />
 
           {/* Logout */}
           <form action="/auth/logout" method="post">
@@ -154,7 +158,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
               type="submit"
               className={cn(
                 'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-                'text-text-secondary hover:bg-gray-100 hover:text-text-primary',
+                'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
                 !isExpanded && !isMobileOpen && 'justify-center px-2'
               )}
               title={!isExpanded && !isMobileOpen ? 'Sair' : undefined}
@@ -174,7 +178,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
             onClick={toggleSidebar}
             className={cn(
               'hidden md:flex w-full items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-              'text-text-secondary hover:bg-gray-100 hover:text-text-primary',
+              'text-text-secondary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text-primary dark:hover:text-white',
               !isExpanded && 'justify-center px-2'
             )}
             title={isExpanded ? 'Recolher' : 'Expandir'}
