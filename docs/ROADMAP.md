@@ -246,7 +246,7 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 |----|--------|------------|--------------|--------|
 | PL6.1 | Sidebar lateral colapsável (navegação) | P1 | M | [x] |
 | PL6.2 | Filtros por area/departamento | P1 | M | [ ] |
-| PL6.3 | Busca por nome ou cargo | P1 | M | [ ] |
+| PL6.3 | Busca por nome ou cargo | P1 | M | [x] |
 | PL6.4 | Niveis de zoom no organograma | P1 | S | [ ] |
 | PL6.5 | Exportar visualizacao como imagem | P1 | M | [ ] |
 | PL6.6 | Historico de projetos entregues | P1 | S | [ ] |
@@ -258,7 +258,7 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 - [x] Sidebar colapsável funciona
 - [ ] Filtros funcionam
-- [ ] Busca funciona
+- [x] Busca funciona
 - [ ] Zoom funciona
 - [ ] App responsivo
 
@@ -329,6 +329,7 @@ Funcionalidades COULD do PRD - sem data definida.
 
 | Data | Versao | Mudanca |
 |------|--------|---------|
+| 2026-02-19 | 1.2.0 | Marca PL6.3 - Busca por nome/cargo como completa |
 | 2026-02-19 | 1.1.0 | Adiciona PL6.1 - Sidebar lateral colapsável |
 | 2026-02-19 | 1.0.0 | Criacao inicial do roadmap |
 

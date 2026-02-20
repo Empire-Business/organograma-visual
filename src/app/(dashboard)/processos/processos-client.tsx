@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { ProcessoCard } from '@/components/processo/processo-card'
 import { ProcessoFormModal } from '@/components/processo/processo-form-modal'
 import { ProcessoDetalhesModal } from '@/components/processo/processo-detalhes-modal'
 import { createProcesso, updateProcesso, deleteProcesso } from '@/lib/actions/processos'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 interface Cargo {
   id: string
@@ -43,6 +44,7 @@ export function ProcessosClient({ processos: initialProcessos, cargos }: Process
   const [editingProcesso, setEditingProcesso] = useState<Processo | null>(null)
   const [selectedProcesso, setSelectedProcesso] = useState<Processo | null>(null)
   const [filtroCargo, setFiltroCargo] = useState<string>('todos')
+  const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(false)
 
   const handleSave = async (data: {
@@ -89,10 +91,30 @@ export function ProcessosClient({ processos: initialProcessos, cargos }: Process
     setShowDetalhes(true)
   }
 
-  // Filtrar processos
-  const processosFiltrados = filtroCargo === 'todos'
-    ? processos
-    : processos.filter(p => p.cargo_id === filtroCargo)
+  // Filtrar processos por cargo e busca
+  const processosFiltrados = useMemo(() => {
+    let result = processos
+
+    // Filtrar por cargo
+    if (filtroCargo === 'gerais') {
+      result = result.filter(p => !p.cargo_id)
+    } else if (filtroCargo !== 'todos') {
+      result = result.filter(p => p.cargo_id === filtroCargo)
+    }
+
+    // Filtrar por busca
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim()
+      result = result.filter(p => {
+        const nomeMatch = p.nome.toLowerCase().includes(query)
+        const descricaoMatch = p.descricao?.toLowerCase().includes(query) || false
+        const cargoMatch = p.cargos?.nome?.toLowerCase().includes(query) || false
+        return nomeMatch || descricaoMatch || cargoMatch
+      })
+    }
+
+    return result
+  }, [processos, filtroCargo, searchQuery])
 
   // Estatísticas
   const stats = {
@@ -147,7 +169,7 @@ export function ProcessosClient({ processos: initialProcessos, cargos }: Process
           </div>
 
           {/* Filtros */}
-          <div className="flex gap-2 mt-6 flex-wrap">
+          <div className="flex gap-2 mt-6 flex-wrap items-center">
             <button
               onClick={() => setFiltroCargo('todos')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -181,6 +203,25 @@ export function ProcessosClient({ processos: initialProcessos, cargos }: Process
                 {cargo.nome}
               </button>
             ))}
+
+            {/* Busca */}
+            <div className="relative ml-auto">
+              <svg
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <Input
+                type="text"
+                placeholder="Buscar processos..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9 w-48 h-9 text-sm"
+              />
+            </div>
           </div>
         </header>
 
