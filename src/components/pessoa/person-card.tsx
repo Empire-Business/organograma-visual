@@ -32,8 +32,8 @@ export function PersonCard({
       className={cn(
         'w-[180px] sm:w-[200px] p-3 sm:p-4 bg-white rounded-xl shadow-card',
         'cursor-pointer transition-all duration-200',
-        'hover:shadow-md hover:-translate-y-0.5',
-        'border-2',
+        'hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98]',
+        'border-2 animate-fade-in',
         isSelected ? 'border-accent-500' : 'border-transparent'
       )}
     >

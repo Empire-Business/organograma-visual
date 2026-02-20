@@ -45,7 +45,7 @@ export function ProcessoCard({ processo, onView, onEdit, onDelete }: ProcessoCar
 
   return (
     <div
-      className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg transition-shadow cursor-pointer"
+      className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 cursor-pointer animate-fade-in"
       onClick={onView}
     >
       {/* Header */}
