@@ -38,11 +38,11 @@ interface ProjetoDetalhesModalProps {
 
 function getStatusColor(status: string): string {
   switch (status) {
-    case 'em_andamento': return 'bg-blue-100 text-blue-700'
-    case 'concluido': return 'bg-green-100 text-green-700'
-    case 'atrasado': return 'bg-red-100 text-red-700'
-    case 'planejado': return 'bg-gray-100 text-gray-700'
-    default: return 'bg-gray-100 text-gray-700'
+    case 'em_andamento': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+    case 'concluido': return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+    case 'atrasado': return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+    case 'planejado': return 'bg-[var(--muted)] text-[var(--muted-foreground)]'
+    default: return 'bg-[var(--muted)] text-[var(--muted-foreground)]'
   }
 }
 
@@ -95,19 +95,26 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
       <div
         className={cn(
           'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-          'w-full max-w-xl bg-white rounded-2xl shadow-panel z-50',
+          'w-full max-w-xl rounded-2xl shadow-panel z-50',
           'transition-all duration-300 max-h-[90vh] overflow-y-auto',
+          'bg-[var(--card)]',
           isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         )}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 p-4 flex items-center justify-between z-10">
-          <h2 className="font-semibold text-text-primary text-lg">{projeto.nome}</h2>
+        <div className={cn(
+          'sticky top-0 p-4 flex items-center justify-between z-10',
+          'bg-[var(--card)] border-b border-[var(--border)]'
+        )}>
+          <h2 className="font-semibold text-[var(--foreground)] text-lg">{projeto.nome}</h2>
           <button
             onClick={handleClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className={cn(
+              'p-2 rounded-lg transition-colors',
+              'hover:bg-[var(--muted)] text-[var(--muted-foreground)]'
+            )}
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -123,7 +130,7 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
             )}>
               {getStatusLabel(projeto.status)}
             </span>
-            <span className="text-sm text-text-muted">
+            <span className="text-sm text-[var(--muted-foreground)]">
               Prioridade: {projeto.prioridade || 'Média'}
             </span>
           </div>
@@ -131,10 +138,10 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
           {/* Descrição */}
           {projeto.descricao && (
             <div>
-              <h4 className="text-sm font-semibold text-text-primary uppercase tracking-wider mb-2">
+              <h4 className="text-sm font-semibold text-[var(--foreground)] uppercase tracking-wider mb-2">
                 Descrição
               </h4>
-              <p className="text-text-secondary text-sm leading-relaxed">
+              <p className="text-[var(--muted-foreground)] text-sm leading-relaxed">
                 {projeto.descricao}
               </p>
             </div>
@@ -143,14 +150,14 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
           {/* Progresso */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h4 className="text-sm font-semibold text-text-primary uppercase tracking-wider">
+              <h4 className="text-sm font-semibold text-[var(--foreground)] uppercase tracking-wider">
                 Progresso
               </h4>
               <span className="text-sm font-medium text-accent-600">
                 {projeto.progresso || 0}%
               </span>
             </div>
-            <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-3 bg-[var(--muted)] rounded-full overflow-hidden">
               <div
                 className={cn(
                   'h-full rounded-full transition-all',
@@ -163,19 +170,19 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
 
           {/* Datas */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gray-50 rounded-xl p-4">
-              <div className="text-xs text-text-muted uppercase tracking-wider mb-1">
+            <div className="bg-[var(--muted)] rounded-xl p-4">
+              <div className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">
                 Criado em
               </div>
-              <div className="text-sm font-medium text-text-primary">
+              <div className="text-sm font-medium text-[var(--foreground)]">
                 {formatarData(projeto.criado_em)}
               </div>
             </div>
-            <div className="bg-gray-50 rounded-xl p-4">
-              <div className="text-xs text-text-muted uppercase tracking-wider mb-1">
+            <div className="bg-[var(--muted)] rounded-xl p-4">
+              <div className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">
                 Prazo
               </div>
-              <div className="text-sm font-medium text-text-primary">
+              <div className="text-sm font-medium text-[var(--foreground)]">
                 {formatarData(projeto.prazo) || 'Não definido'}
               </div>
             </div>
@@ -183,7 +190,7 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
 
           {/* Equipe */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary uppercase tracking-wider mb-3">
+            <h4 className="text-sm font-semibold text-[var(--foreground)] uppercase tracking-wider mb-3">
               Equipe ({pessoas.length})
             </h4>
             {pessoas.length > 0 ? (
@@ -191,7 +198,10 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
                 {pessoas.map((pessoa, index) => (
                   <div
                     key={pessoa?.id || index}
-                    className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg"
+                    className={cn(
+                      'flex items-center gap-3 p-2 rounded-lg',
+                      'bg-[var(--muted)]'
+                    )}
                   >
                     <Avatar
                       src={pessoa?.avatar_url}
@@ -199,17 +209,17 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
                       size="sm"
                     />
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium text-text-primary truncate">
+                      <div className="text-sm font-medium text-[var(--foreground)] truncate">
                         {pessoa?.nome}
                       </div>
                       {pessoa?.cargo?.nome && (
-                        <div className="text-xs text-text-muted truncate">
+                        <div className="text-xs text-[var(--muted-foreground)] truncate">
                           {pessoa.cargo.nome}
                         </div>
                       )}
                     </div>
                     {projeto.projeto_pessoas?.[index]?.papel && (
-                      <span className="text-xs text-text-muted bg-gray-200 px-2 py-1 rounded">
+                      <span className="text-xs text-[var(--muted-foreground)] bg-[var(--border)] px-2 py-1 rounded">
                         {projeto.projeto_pessoas[index].papel}
                       </span>
                     )}
@@ -217,14 +227,17 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-text-muted text-center py-4">
+              <p className="text-sm text-[var(--muted-foreground)] text-center py-4">
                 Nenhuma pessoa alocada
               </p>
             )}
           </div>
 
           {/* Ações */}
-          <div className="flex gap-3 pt-4 border-t border-gray-100">
+          <div className={cn(
+            'flex gap-3 pt-4 border-t',
+            'border-[var(--border)]'
+          )}>
             <button
               onClick={() => {
                 handleClose()
@@ -236,7 +249,10 @@ export function ProjetoDetalhesModal({ projeto, onClose, onEdit }: ProjetoDetalh
             </button>
             <button
               onClick={handleClose}
-              className="flex-1 px-4 py-2 border border-gray-200 text-text-secondary rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
+              className={cn(
+                'flex-1 px-4 py-2 border rounded-lg transition-colors text-sm font-medium',
+                'border-[var(--border)] text-[var(--muted-foreground)] hover:bg-[var(--muted)]'
+              )}
             >
               Fechar
             </button>

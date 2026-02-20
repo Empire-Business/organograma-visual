@@ -6,18 +6,20 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg'
 }
 
+// Variants usando tokens centralizados + CSS variables
 const variants = {
   primary: 'bg-accent-600 text-white hover:bg-accent-700 dark:bg-accent-500 dark:hover:bg-accent-600 focus:ring-accent-500',
-  secondary: 'bg-[var(--muted)] text-[var(--foreground)] hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-gray-500',
-  outline: 'border-2 border-accent-600 text-accent-600 hover:bg-accent-50 dark:hover:bg-accent-900/30 focus:ring-accent-500',
-  ghost: 'text-[var(--muted-foreground)] hover:bg-[var(--muted)] focus:ring-gray-500',
+  secondary: 'bg-[var(--muted)] text-[var(--foreground)] hover:bg-[var(--border)] dark:hover:bg-[var(--border)] focus:ring-[var(--muted-foreground)]',
+  outline: 'border-2 border-accent-600 text-accent-600 hover:bg-accent-50 dark:hover:bg-accent-900/30 dark:border-accent-400 dark:text-accent-400 focus:ring-accent-500',
+  ghost: 'text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] focus:ring-[var(--muted-foreground)]',
   danger: 'bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 focus:ring-red-500',
 }
 
+// Sizes usando tokens de spacing
 const sizes = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-4 py-2 text-base',
-  lg: 'px-6 py-3 text-lg',
+  sm: 'px-3 py-1.5 text-sm rounded-md',
+  md: 'px-4 py-2 text-sm rounded-lg',
+  lg: 'px-6 py-3 text-base rounded-lg',
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(

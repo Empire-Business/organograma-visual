@@ -70,19 +70,26 @@ export function ProcessoDetalhesModal({ processo, onClose, onEdit }: ProcessoDet
       <div
         className={cn(
           'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-          'w-full max-w-2xl bg-white rounded-2xl shadow-panel z-50',
+          'w-full max-w-2xl rounded-2xl shadow-panel z-50',
           'transition-all duration-300 max-h-[90vh] overflow-y-auto',
+          'bg-[var(--card)]',
           isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         )}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 p-4 flex items-center justify-between z-10">
-          <h2 className="font-semibold text-text-primary">{processo.nome}</h2>
+        <div className={cn(
+          'sticky top-0 p-4 flex items-center justify-between z-10',
+          'bg-[var(--card)] border-b border-[var(--border)]'
+        )}>
+          <h2 className="font-semibold text-[var(--foreground)]">{processo.nome}</h2>
           <button
             onClick={handleClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className={cn(
+              'p-2 rounded-lg transition-colors',
+              'hover:bg-[var(--muted)] text-[var(--muted-foreground)]'
+            )}
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -93,24 +100,24 @@ export function ProcessoDetalhesModal({ processo, onClose, onEdit }: ProcessoDet
           {/* Descrição */}
           {processo.descricao && (
             <div>
-              <div className="text-xs text-text-muted font-medium mb-1">Descrição</div>
-              <p className="text-sm text-text-primary">{processo.descricao}</p>
+              <div className="text-xs text-[var(--muted-foreground)] font-medium mb-1">Descrição</div>
+              <p className="text-sm text-[var(--foreground)]">{processo.descricao}</p>
             </div>
           )}
 
           {/* Tags */}
           <div className="flex items-center gap-2 flex-wrap">
             {processo.cargos ? (
-              <span className="text-xs px-3 py-1.5 rounded-full bg-accent-100 text-accent-700 font-medium">
+              <span className="text-xs px-3 py-1.5 rounded-full bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 font-medium">
                 {processo.cargos.nome}
               </span>
             ) : (
-              <span className="text-xs px-3 py-1.5 rounded-full bg-gray-100 text-gray-600 font-medium">
+              <span className="text-xs px-3 py-1.5 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] font-medium">
                 Geral (todos os cargos)
               </span>
             )}
             {processo.frequencia && (
-              <span className="text-xs px-3 py-1.5 rounded-full bg-blue-100 text-blue-700 font-medium">
+              <span className="text-xs px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium">
                 {frequenciaLabels[processo.frequencia] || processo.frequencia}
               </span>
             )}
@@ -118,7 +125,7 @@ export function ProcessoDetalhesModal({ processo, onClose, onEdit }: ProcessoDet
 
           {/* Etapas */}
           <div>
-            <div className="text-xs text-text-muted font-medium mb-3">
+            <div className="text-xs text-[var(--muted-foreground)] font-medium mb-3">
               Etapas ({processo.etapas?.length || 0})
             </div>
 
@@ -131,15 +138,15 @@ export function ProcessoDetalhesModal({ processo, onClose, onEdit }: ProcessoDet
                         {etapa.ordem}
                       </div>
                       {index < processo.etapas.length - 1 && (
-                        <div className="w-0.5 h-full bg-accent-200 min-h-[20px]" />
+                        <div className="w-0.5 h-full bg-accent-200 dark:bg-accent-800 min-h-[20px]" />
                       )}
                     </div>
                     <div className="flex-1 pb-4">
-                      <div className="font-medium text-text-primary text-sm">
+                      <div className="font-medium text-[var(--foreground)] text-sm">
                         {etapa.titulo}
                       </div>
                       {etapa.descricao && (
-                        <div className="text-xs text-text-muted mt-1">
+                        <div className="text-xs text-[var(--muted-foreground)] mt-1">
                           {etapa.descricao}
                         </div>
                       )}
@@ -156,7 +163,7 @@ export function ProcessoDetalhesModal({ processo, onClose, onEdit }: ProcessoDet
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 text-text-muted text-sm">
+              <div className="text-center py-8 text-[var(--muted-foreground)] text-sm">
                 Nenhuma etapa cadastrada
               </div>
             )}
@@ -164,7 +171,10 @@ export function ProcessoDetalhesModal({ processo, onClose, onEdit }: ProcessoDet
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 bg-white border-t border-gray-100 p-4 flex gap-3">
+        <div className={cn(
+          'sticky bottom-0 p-4 flex gap-3',
+          'bg-[var(--card)] border-t border-[var(--border)]'
+        )}>
           <Button
             type="button"
             variant="outline"

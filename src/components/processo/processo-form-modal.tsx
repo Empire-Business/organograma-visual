@@ -143,21 +143,28 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
       <div
         className={cn(
           'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-          'w-full max-w-2xl bg-white rounded-2xl shadow-panel z-50',
+          'w-full max-w-2xl rounded-2xl shadow-panel z-50',
           'transition-all duration-300 max-h-[90vh] overflow-y-auto',
+          'bg-[var(--card)]',
           isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         )}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 p-4 flex items-center justify-between z-10">
-          <h2 className="font-semibold text-text-primary">
+        <div className={cn(
+          'sticky top-0 p-4 flex items-center justify-between z-10',
+          'bg-[var(--card)] border-b border-[var(--border)]'
+        )}>
+          <h2 className="font-semibold text-[var(--foreground)]">
             {processo ? 'Editar Processo' : 'Novo Processo'}
           </h2>
           <button
             onClick={handleClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className={cn(
+              'p-2 rounded-lg transition-colors',
+              'hover:bg-[var(--muted)] text-[var(--muted-foreground)]'
+            )}
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -167,7 +174,7 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           {/* Nome */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Nome do processo *
             </label>
             <Input
@@ -180,7 +187,7 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
 
           {/* Descrição */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Descrição
             </label>
             <textarea
@@ -188,20 +195,26 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
               onChange={(e) => setFormData(prev => ({ ...prev, descricao: e.target.value }))}
               placeholder="Descreva o objetivo deste processo..."
               rows={2}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none"
+              className={cn(
+                'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none',
+                'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]'
+              )}
             />
           </div>
 
           {/* Cargo e Frequência */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-text-primary mb-1">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
                 Cargo responsável
               </label>
               <select
                 value={formData.cargo_id}
                 onChange={(e) => setFormData(prev => ({ ...prev, cargo_id: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500"
+                className={cn(
+                  'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500',
+                  'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]'
+                )}
               >
                 <option value="">Geral (todos os cargos)</option>
                 {cargos.map(cargo => (
@@ -212,13 +225,16 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-primary mb-1">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
                 Frequência
               </label>
               <select
                 value={formData.frequencia}
                 onChange={(e) => setFormData(prev => ({ ...prev, frequencia: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500"
+                className={cn(
+                  'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500',
+                  'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]'
+                )}
               >
                 <option value="">Selecione...</option>
                 <option value="diario">Diário</option>
@@ -235,7 +251,7 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
 
           {/* Etapas */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-2">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
               Etapas do processo ({formData.etapas.length})
             </label>
 
@@ -245,17 +261,20 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
                 {formData.etapas.map((etapa, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg group"
+                    className={cn(
+                      'flex items-start gap-3 p-3 rounded-lg group',
+                      'bg-[var(--muted)]'
+                    )}
                   >
                     <div className="w-8 h-8 rounded-full bg-accent-600 text-white text-sm flex items-center justify-center shrink-0 font-medium">
                       {etapa.ordem}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-text-primary text-sm">
+                      <div className="font-medium text-[var(--foreground)] text-sm">
                         {etapa.titulo}
                       </div>
                       {etapa.descricao && (
-                        <div className="text-xs text-text-muted mt-0.5">
+                        <div className="text-xs text-[var(--muted-foreground)] mt-0.5">
                           {etapa.descricao}
                         </div>
                       )}
@@ -270,7 +289,7 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
                         type="button"
                         onClick={() => moverEtapa(index, 'cima')}
                         disabled={index === 0}
-                        className="p-1 text-gray-400 hover:text-accent-600 disabled:opacity-30"
+                        className="p-1 text-[var(--muted-foreground)] hover:text-accent-600 disabled:opacity-30"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
@@ -280,7 +299,7 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
                         type="button"
                         onClick={() => moverEtapa(index, 'baixo')}
                         disabled={index === formData.etapas.length - 1}
-                        className="p-1 text-gray-400 hover:text-accent-600 disabled:opacity-30"
+                        className="p-1 text-[var(--muted-foreground)] hover:text-accent-600 disabled:opacity-30"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -289,7 +308,7 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
                       <button
                         type="button"
                         onClick={() => removerEtapa(index)}
-                        className="p-1 text-gray-400 hover:text-red-600"
+                        className="p-1 text-[var(--muted-foreground)] hover:text-red-600"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -302,8 +321,11 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
             )}
 
             {/* Adicionar etapa */}
-            <div className="border border-dashed border-gray-300 rounded-lg p-3 space-y-3">
-              <div className="text-xs text-text-muted font-medium">Adicionar etapa</div>
+            <div className={cn(
+              'border border-dashed rounded-lg p-3 space-y-3',
+              'border-[var(--border)]'
+            )}>
+              <div className="text-xs text-[var(--muted-foreground)] font-medium">Adicionar etapa</div>
               <Input
                 value={novaEtapa.titulo}
                 onChange={(e) => setNovaEtapa(prev => ({ ...prev, titulo: e.target.value }))}
@@ -335,7 +357,7 @@ export function ProcessoFormModal({ processo, cargos, onClose, onSave }: Process
 
           {/* Erro */}
           {error && (
-            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg">
+            <div className="p-3 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm rounded-lg">
               {error}
             </div>
           )}

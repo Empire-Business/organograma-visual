@@ -11,6 +11,20 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/)
   - Checklist de validação bloqueante adicionado
 
 ### Changed
+- **2026-02-20**: Fase 8 (Design System Profissional) concluída
+  - Refatorados Button.tsx e Avatar.tsx com tokens centralizados
+  - Refatorados todos os modais para usar CSS variables:
+    - person-form-modal.tsx
+    - projeto-form-modal.tsx
+    - projeto-detalhes-modal.tsx
+    - processo-form-modal.tsx
+    - processo-detalhes-modal.tsx
+    - cargo-form-modal.tsx
+    - cargos-list-modal.tsx
+  - Refatorado theme-toggle.tsx com tokens
+  - Atualizado getStatusColor() em projeto-detalhes-modal.tsx para dark mode
+  - ROADMAP atualizado: Fase 8 marcada como completa
+- **2026-02-20**: Design System Profissional (Fase 8)
 - **2026-02-20**: Design System Profissional (Fase 8)
   - Criado `src/design/tokens.ts` como fonte canonica de tokens
   - Criado `docs/DESIGN/components.md` com documentacao de componentes

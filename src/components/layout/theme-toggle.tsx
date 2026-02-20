@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { cn } from '@/lib/utils'
 
 export function ThemeToggle() {
   const [isDark, setIsDark] = useState(false)
@@ -34,7 +35,10 @@ export function ThemeToggle() {
   // Prevent hydration mismatch
   if (!mounted) {
     return (
-      <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-text-secondary hover:bg-gray-100 dark:hover:bg-gray-800">
+      <button className={cn(
+        'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
+        'text-[var(--muted-foreground)] hover:bg-[var(--muted)]'
+      )}>
         <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
@@ -46,7 +50,10 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-text-secondary hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-400"
+      className={cn(
+        'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
+        'text-[var(--muted-foreground)] hover:bg-[var(--muted)]'
+      )}
       title={isDark ? 'Modo claro' : 'Modo escuro'}
     >
       {isDark ? (

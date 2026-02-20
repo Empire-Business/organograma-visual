@@ -321,7 +321,7 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 
 **Dependencias:** Nenhuma
 
-**Status:** [>] Em andamento
+**Status:** [x] Completo
 
 ### Tarefas
 
@@ -334,17 +334,17 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 | DS8.5 | Refatorar Card.tsx para dark mode | P1 | S | [x] |
 | DS8.6 | Refatorar Input.tsx para dark mode | P1 | S | [x] |
 | DS8.7 | Refatorar StatusBadge.tsx para dark mode | P1 | S | [x] |
-| DS8.8 | Refatorar Button.tsx com tokens centralizados | P1 | S | [ ] |
-| DS8.9 | Refatorar Avatar.tsx com tokens centralizados | P1 | S | [ ] |
-| DS8.10 | Refatorar person-card.tsx com tokens | P1 | M | [ ] |
-| DS8.11 | Refatorar person-panel.tsx com tokens | P1 | M | [ ] |
-| DS8.12 | Refatorar sidebar.tsx com tokens | P1 | M | [ ] |
-| DS8.13 | Refatorar modais com tokens | P1 | M | [ ] |
+| DS8.8 | Refatorar Button.tsx com tokens centralizados | P1 | S | [x] |
+| DS8.9 | Refatorar Avatar.tsx com tokens centralizados | P1 | S | [x] |
+| DS8.10 | Refatorar person-card.tsx com tokens | P1 | M | [x] |
+| DS8.11 | Refatorar modais com tokens (form e detalhes) | P1 | M | [x] |
+| DS8.12 | Refatorar sidebar.tsx com tokens | P1 | M | [x] |
+| DS8.13 | Refatorar theme-toggle.tsx com tokens | P1 | S | [x] |
 | DS8.14 | Implementar fonte Inter do Google Fonts | P0 | S | [x] |
-| DS8.15 | Criar componente Progress visual | P1 | S | [ ] |
-| DS8.16 | Criar componente Timeline | P1 | M | [ ] |
-| DS8.17 | Criar componente Tabs | P1 | S | [ ] |
-| DS8.18 | Criar componente Breadcrumbs | P1 | S | [ ] |
+| DS8.15 | Criar componente Progress visual | P1 | S | [x] |
+| DS8.16 | Criar componente Timeline | P1 | M | [x] |
+| DS8.17 | Criar componente Tabs | P1 | S | [x] |
+| DS8.18 | Criar componente Breadcrumbs | P1 | S | [x] |
 | DS8.19 | Padronizar animacoes (150ms-500ms) | P1 | M | [x] |
 
 ### Criterios de Conclusao
@@ -352,10 +352,10 @@ Antes de comecar a desenvolver, precisamos ter a documentacao completa:
 - [x] Tokens CSS criados
 - [x] Token TS centralizado criado
 - [x] Documentacao criada
-- [ ] Todos componentes refatorados com tokens
+- [x] Todos componentes refatorados com tokens
 - [x] Fonte Inter implementada
 - [x] Animacoes padronizadas
-- [ ] Componentes novos criados (Progress, Timeline, Tabs, Breadcrumbs)
+- [x] Componentes novos criados (Progress, Timeline, Tabs, Breadcrumbs)
 
 ---
 

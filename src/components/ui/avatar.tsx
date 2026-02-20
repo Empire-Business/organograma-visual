@@ -7,15 +7,16 @@ interface AvatarProps {
   className?: string
 }
 
+// Sizes com tipografia consistente
 const sizes = {
-  xs: 'w-6 h-6 text-[10px]',
-  sm: 'w-8 h-8 text-xs',
-  md: 'w-10 h-10 text-sm',
-  lg: 'w-16 h-16 text-xl',
-  xl: 'w-24 h-24 text-2xl',
+  xs: 'w-6 h-6 text-[10px] font-semibold',
+  sm: 'w-8 h-8 text-xs font-semibold',
+  md: 'w-10 h-10 text-sm font-semibold',
+  lg: 'w-16 h-16 text-xl font-bold',
+  xl: 'w-24 h-24 text-2xl font-bold',
 }
 
-// Cores de fundo baseadas no nome para consistencia
+// Cores de fundo baseadas no nome para consistencia (tons vibrantes mas profissionais)
 const avatarColors = [
   'bg-accent-500',
   'bg-blue-500',

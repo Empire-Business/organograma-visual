@@ -128,21 +128,28 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
       <div
         className={cn(
           'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-          'w-full max-w-2xl bg-white rounded-2xl shadow-panel z-50',
+          'w-full max-w-2xl rounded-2xl shadow-panel z-50',
           'transition-all duration-300 max-h-[90vh] overflow-y-auto',
+          'bg-[var(--card)]',
           isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         )}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 p-4 flex items-center justify-between z-10">
-          <h2 className="font-semibold text-text-primary">
+        <div className={cn(
+          'sticky top-0 p-4 flex items-center justify-between z-10',
+          'bg-[var(--card)] border-b border-[var(--border)]'
+        )}>
+          <h2 className="font-semibold text-[var(--foreground)]">
             {projeto ? 'Editar Projeto' : 'Novo Projeto'}
           </h2>
           <button
             onClick={handleClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className={cn(
+              'p-2 rounded-lg transition-colors',
+              'hover:bg-[var(--muted)] text-[var(--muted-foreground)]'
+            )}
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -152,7 +159,7 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           {/* Nome */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Nome do projeto *
             </label>
             <Input
@@ -165,7 +172,7 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
 
           {/* Descrição */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Descrição
             </label>
             <textarea
@@ -173,20 +180,26 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
               onChange={(e) => setFormData(prev => ({ ...prev, descricao: e.target.value }))}
               placeholder="Descreva o projeto..."
               rows={3}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none"
+              className={cn(
+                'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none',
+                'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]'
+              )}
             />
           </div>
 
           {/* Status, Prioridade e Prazo */}
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-text-primary mb-1">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
                 Status
               </label>
               <select
                 value={formData.status}
                 onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500"
+                className={cn(
+                  'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500',
+                  'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]'
+                )}
               >
                 <option value="planejado">Planejado</option>
                 <option value="em_andamento">Em andamento</option>
@@ -196,13 +209,16 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-primary mb-1">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
                 Prioridade
               </label>
               <select
                 value={formData.prioridade}
                 onChange={(e) => setFormData(prev => ({ ...prev, prioridade: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500"
+                className={cn(
+                  'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500',
+                  'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]'
+                )}
               >
                 <option value="baixa">Baixa</option>
                 <option value="media">Média</option>
@@ -211,7 +227,7 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-primary mb-1">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
                 Prazo
               </label>
               <Input
@@ -224,7 +240,7 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
 
           {/* Progresso */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">
               Progresso: {formData.progresso}%
             </label>
             <input
@@ -233,36 +249,42 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
               max="100"
               value={formData.progresso}
               onChange={(e) => setFormData(prev => ({ ...prev, progresso: Number(e.target.value) }))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent-600"
+              className="w-full h-2 bg-[var(--muted)] rounded-lg appearance-none cursor-pointer accent-accent-600"
             />
           </div>
 
           {/* Pessoas */}
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-2">
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
               Equipe do projeto
             </label>
-            <div className="max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-3 space-y-3">
+            <div className={cn(
+              'max-h-48 overflow-y-auto border rounded-lg p-3 space-y-3',
+              'border-[var(--border)]'
+            )}>
               {Object.entries(pessoasPorNivel).map(([nivel, pessoasDoNivel]) => (
                 <div key={nivel}>
-                  <div className="text-xs font-medium text-text-muted uppercase tracking-wider mb-2">
+                  <div className="text-xs font-medium text-[var(--muted-foreground)] uppercase tracking-wider mb-2">
                     Nível {nivel}
                   </div>
                   <div className="space-y-1">
                     {pessoasDoNivel.map(pessoa => (
                       <label
                         key={pessoa.id}
-                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer"
+                        className={cn(
+                          'flex items-center gap-3 p-2 rounded-lg cursor-pointer',
+                          'hover:bg-[var(--muted)]'
+                        )}
                       >
                         <input
                           type="checkbox"
                           checked={formData.pessoas.includes(pessoa.id)}
                           onChange={() => togglePessoa(pessoa.id)}
-                          className="w-4 h-4 text-accent-600 rounded border-gray-300 focus:ring-accent-500"
+                          className="w-4 h-4 text-accent-600 rounded border-[var(--border)] focus:ring-accent-500"
                         />
                         <div className="flex-1 min-w-0">
-                          <span className="text-sm text-text-primary">{pessoa.nome}</span>
-                          <span className="text-xs text-text-muted ml-2">{pessoa.cargo}</span>
+                          <span className="text-sm text-[var(--foreground)]">{pessoa.nome}</span>
+                          <span className="text-xs text-[var(--muted-foreground)] ml-2">{pessoa.cargo}</span>
                         </div>
                       </label>
                     ))}
@@ -270,7 +292,7 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
                 </div>
               ))}
               {pessoas.length === 0 && (
-                <p className="text-sm text-text-muted text-center py-4">
+                <p className="text-sm text-[var(--muted-foreground)] text-center py-4">
                   Nenhuma pessoa cadastrada
                 </p>
               )}
@@ -279,7 +301,7 @@ export function ProjetoFormModal({ projeto, pessoas, onClose, onSave }: ProjetoF
 
           {/* Erro */}
           {error && (
-            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg">
+            <div className="p-3 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm rounded-lg">
               {error}
             </div>
           )}
