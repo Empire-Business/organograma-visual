@@ -40,12 +40,12 @@ export default async function PerfilPage() {
     )
   }
 
-  // Buscar cargo separadamente
+  // Buscar cargo separadamente (com subarea_id da página áreas-cargos)
   let cargo = null
   if (pessoaData.cargo_id) {
     const { data: cargoData } = await supabase
       .from('cargos')
-      .select('id, nome, nivel, descricao, funcoes, metas')
+      .select('id, nome, nivel, descricao, funcoes, metas, subarea_id')
       .eq('id', pessoaData.cargo_id)
       .single()
     cargo = cargoData

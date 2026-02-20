@@ -115,10 +115,10 @@ export default async function OrganogramaPage() {
     .eq('ativo', true)
     .order('nivel', { ascending: true })
 
-  // Buscar cargos
+  // Buscar cargos (com subarea_id para integração com áreas-cargos)
   const { data: cargos } = await supabase
     .from('cargos')
-    .select('*')
+    .select('id, nome, descricao, nivel, departamento, funcoes, metas, subarea_id')
     .order('nivel', { ascending: true })
 
   // Se não há dados, usar exemplo

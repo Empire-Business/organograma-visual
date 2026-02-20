@@ -33,10 +33,10 @@ export default async function ColaboradoresPage() {
     `)
     .order('ordem')
 
-  // Buscar cargos para filtro
+  // Buscar cargos para filtro (agora com subarea_id da página áreas-cargos)
   const { data: cargos } = await supabase
     .from('cargos')
-    .select('id, nome, nivel, departamento')
+    .select('id, nome, nivel, departamento, subarea_id')
     .order('nome')
 
   return (

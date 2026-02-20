@@ -7,6 +7,7 @@ import { ProcessoDetalhesModal } from '@/components/processo/processo-detalhes-m
 import { createProcesso, updateProcesso, deleteProcesso } from '@/lib/actions/processos'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { usePermissions } from '@/hooks/use-permissions'
 
 interface Cargo {
   id: string
@@ -43,6 +44,9 @@ export function ProcessosClient({ processos: initialProcessos, cargos }: Process
   const [showDetalhes, setShowDetalhes] = useState(false)
   const [editingProcesso, setEditingProcesso] = useState<Processo | null>(null)
   const [selectedProcesso, setSelectedProcesso] = useState<Processo | null>(null)
+
+  // Permissões do usuário
+  const { isAdmin, isManager } = usePermissions()
   const [filtroCargo, setFiltroCargo] = useState<string>('todos')
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(false)
@@ -137,15 +141,17 @@ export function ProcessosClient({ processos: initialProcessos, cargos }: Process
                 Documente e gerencie os processos da empresa
               </p>
             </div>
-            <Button onClick={() => {
-              setEditingProcesso(null)
-              setShowForm(true)
-            }}>
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              Novo Processo
-            </Button>
+            {(isAdmin || isManager) && (
+              <Button onClick={() => {
+                setEditingProcesso(null)
+                setShowForm(true)
+              }}>
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Novo Processo
+              </Button>
+            )}
           </div>
 
           {/* Estatísticas */}

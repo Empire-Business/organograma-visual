@@ -14,7 +14,8 @@ export default async function AreasCargosPage() {
         nome,
         descricao,
         ordem,
-        cor
+        cor,
+        area_id
       )
     `)
     .order('ordem', { ascending: true })

@@ -11,6 +11,7 @@ export interface CargoFormData {
   departamento?: string
   funcoes?: string[]
   metas?: string[]
+  subarea_id?: string
 }
 
 // Buscar todos os cargos
@@ -42,7 +43,8 @@ export async function createCargo(formData: CargoFormData) {
       nivel: formData.nivel,
       departamento: formData.departamento,
       funcoes: formData.funcoes || [],
-      metas: formData.metas || []
+      metas: formData.metas || [],
+      subarea_id: formData.subarea_id || null
     })
 
   if (error) {
@@ -51,6 +53,7 @@ export async function createCargo(formData: CargoFormData) {
   }
 
   revalidatePath('/organograma')
+  revalidatePath('/areas-cargos')
 }
 
 // Atualizar cargo
@@ -65,7 +68,8 @@ export async function updateCargo(id: string, formData: CargoFormData) {
       nivel: formData.nivel,
       departamento: formData.departamento,
       funcoes: formData.funcoes || [],
-      metas: formData.metas || []
+      metas: formData.metas || [],
+      subarea_id: formData.subarea_id || null
     })
     .eq('id', id)
 
@@ -75,6 +79,7 @@ export async function updateCargo(id: string, formData: CargoFormData) {
   }
 
   revalidatePath('/organograma')
+  revalidatePath('/areas-cargos')
 }
 
 // Deletar cargo
@@ -103,4 +108,5 @@ export async function deleteCargo(id: string) {
   }
 
   revalidatePath('/organograma')
+  revalidatePath('/areas-cargos')
 }

@@ -13,6 +13,7 @@ interface Cargo {
   departamento?: string
   funcoes?: string[]
   metas?: string[]
+  subarea_id?: string
 }
 
 interface CargoFormModalProps {

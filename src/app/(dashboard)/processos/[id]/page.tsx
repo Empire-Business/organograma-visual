@@ -28,10 +28,10 @@ export default async function ProcessoDetalhePage({
     notFound()
   }
 
-  // Buscar todos os cargos para edição
+  // Buscar todos os cargos para edição (com subarea_id da página áreas-cargos)
   const { data: cargos } = await supabase
     .from('cargos')
-    .select('id, nome, nivel')
+    .select('id, nome, nivel, subarea_id')
     .order('nivel', { ascending: true })
 
   return (

@@ -41,6 +41,18 @@ const MIGRATIONS = [
     file: '006_seed_subareas_clean.sql',
     description: 'Subáreas padrão (10 subáreas: Marketing, Vendas, CS, Produto, Dev, Design, Financeiro, RH, TI, Admin)',
   },
+  {
+    id: '009',
+    name: 'Kanban Tarefas',
+    file: '009_kanban_tarefas.sql',
+    description: 'Adiciona colunas kanban_column e kanban_order na tabela tarefas',
+  },
+  {
+    id: '010',
+    name: 'Fix RLS Subareas/Cargos',
+    file: '010_fix_rls_subareas_cargos.sql',
+    description: 'Permite insert em subareas e cargos para usuários autenticados',
+  },
 ]
 
 interface MigrationStatus {

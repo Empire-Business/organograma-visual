@@ -14,10 +14,10 @@ export default async function ProcessosPage() {
     .eq('ativo', true)
     .order('nome', { ascending: true })
 
-  // Buscar cargos para o formulário
+  // Buscar cargos para o formulário (com subarea_id da página áreas-cargos)
   const { data: cargos } = await supabase
     .from('cargos')
-    .select('id, nome, nivel')
+    .select('id, nome, nivel, subarea_id')
     .order('nivel', { ascending: true })
 
   return (
