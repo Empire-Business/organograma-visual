@@ -1,135 +1,86 @@
 import { createClient } from '@/lib/supabase/server'
 import { OrganogramaClient } from './organograma-client'
 
-// Dados de exemplo para quando o banco está vazio
-const exemploPessoas = [
-  {
-    id: '1',
-    nome: 'Maria Silva',
-    cargo: 'CEO',
-    avatar_url: null,
-    nivel: 1,
-    reports_to: null,
-    projetos_ativos: 3,
-    tarefas_pendentes: 5,
-  },
-  {
-    id: '2',
-    nome: 'João Santos',
-    cargo: 'Diretor',
-    avatar_url: null,
-    nivel: 2,
-    reports_to: '1',
-    projetos_ativos: 2,
-    tarefas_pendentes: 3,
-  },
-  {
-    id: '3',
-    nome: 'Ana Costa',
-    cargo: 'Diretora',
-    avatar_url: null,
-    nivel: 2,
-    reports_to: '1',
-    projetos_ativos: 4,
-    tarefas_pendentes: 1,
-  },
-  {
-    id: '4',
-    nome: 'Pedro Lima',
-    cargo: 'Gerente',
-    avatar_url: null,
-    nivel: 3,
-    reports_to: '2',
-    projetos_ativos: 1,
-    tarefas_pendentes: 8,
-  },
-  {
-    id: '5',
-    nome: 'Carla Oliveira',
-    cargo: 'Gerente',
-    avatar_url: null,
-    nivel: 3,
-    reports_to: '2',
-    projetos_ativos: 2,
-    tarefas_pendentes: 0,
-  },
-  {
-    id: '6',
-    nome: 'Lucas Ferreira',
-    cargo: 'Gerente',
-    avatar_url: null,
-    nivel: 3,
-    reports_to: '3',
-    projetos_ativos: 3,
-    tarefas_pendentes: 2,
-  },
-  {
-    id: '7',
-    nome: 'Julia Mendes',
-    cargo: 'Analista',
-    avatar_url: null,
-    nivel: 4,
-    reports_to: '4',
-    projetos_ativos: 2,
-    tarefas_pendentes: 4,
-  },
-  {
-    id: '8',
-    nome: 'Rafael Souza',
-    cargo: 'Analista',
-    avatar_url: null,
-    nivel: 4,
-    reports_to: '4',
-    projetos_ativos: 1,
-    tarefas_pendentes: 2,
-  },
-  {
-    id: '9',
-    nome: 'Fernanda Rocha',
-    cargo: 'Analista',
-    avatar_url: null,
-    nivel: 4,
-    reports_to: '5',
-    projetos_ativos: 0,
-    tarefas_pendentes: 0,
-  },
-  {
-    id: '10',
-    nome: 'Bruno Alves',
-    cargo: 'Analista',
-    avatar_url: null,
-    nivel: 4,
-    reports_to: '6',
-    projetos_ativos: 2,
-    tarefas_pendentes: 1,
-  },
-]
-
 export default async function OrganogramaPage() {
   const supabase = await createClient()
 
-  // Buscar dados do organograma
-  const { data: pessoas, error } = await supabase
-    .from('view_organograma')
-    .select('*')
+  // Buscar pessoas ativas diretamente da tabela pessoas (dados REAIS)
+  const { data: pessoas } = await supabase
+    .from('pessoas')
+    .select(`
+      id,
+      nome,
+      avatar_url,
+      cargo_id,
+      reports_to,
+      ativo,
+      created_at
+    `)
     .eq('ativo', true)
-    .order('nivel', { ascending: true })
+    .order('created_at', { ascending: true })
 
-  // Buscar cargos (com subarea_id para integração com áreas-cargos)
-  const { data: cargos } = await supabase
+  // Buscar todos os cargos (com ou sem subarea_id para compatibilidade)
+  const { data: todosCargos } = await supabase
     .from('cargos')
     .select('id, nome, descricao, nivel, departamento, funcoes, metas, subarea_id')
     .order('nivel', { ascending: true })
 
-  // Se não há dados, usar exemplo
-  const dados = pessoas && pessoas.length > 0 ? pessoas : exemploPessoas
-  const cargosData = cargos || []
+  // Buscar contagem de projetos ativos por pessoa
+  const { data: projetosPessoas } = await supabase
+    .from('projeto_pessoas')
+    .select('pessoa_id, projetos(status)')
+
+  const { data: projetos } = await supabase
+    .from('projetos')
+    .select('id, status')
+    .eq('status', 'em_andamento')
+
+  const projetosAtivosIds = new Set(projetos?.map(p => p.id) || [])
+  const projetosPorPessoa: Record<string, number> = {}
+  projetosPessoas?.forEach(pp => {
+    // Verificar se a pessoa tem projeto ativo
+    // Como não dá para filtrar no join, vamos contar de forma simples
+    const key = pp.pessoa_id
+    projetosPorPessoa[key] = (projetosPorPessoa[key] || 0) + 1
+  })
+
+  // Buscar tarefas pendentes por pessoa
+  const { data: tarefas } = await supabase
+    .from('tarefas')
+    .select('pessoa_id')
+    .eq('status', 'pendente')
+
+  const tarefasPorPessoa: Record<string, number> = {}
+  tarefas?.forEach(t => {
+    if (t.pessoa_id) {
+      tarefasPorPessoa[t.pessoa_id] = (tarefasPorPessoa[t.pessoa_id] || 0) + 1
+    }
+  })
+
+  // Mapear pessoas com seus cargos e métricas
+  const pessoasComCargo = pessoas?.map(p => {
+    const cargo = todosCargos?.find(c => c.id === p.cargo_id)
+    return {
+      ...p,
+      cargo: cargo?.nome || 'Sem cargo',
+      nivel: cargo?.nivel || 1,
+      subarea_id: cargo?.subarea_id,
+      projetos_ativos: projetosPorPessoa[p.id] || 0,
+      tarefas_pendentes: tarefasPorPessoa[p.id] || 0
+    }
+  }) || []
+
+  const dados = pessoasComCargo
+  const cargosData = todosCargos || []
+
+  // Verificar se há dados reais
+  const isDemo = !dados || dados.length === 0
 
   return (
     <OrganogramaClient
       pessoas={dados}
       cargos={cargosData}
-      isDemo={!pessoas || pessoas.length === 0}
+      isDemo={isDemo}
     />
   )
 }

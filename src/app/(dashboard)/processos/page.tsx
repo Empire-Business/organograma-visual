@@ -15,12 +15,10 @@ export default async function ProcessosPage() {
     .eq('ativo', true)
     .order('nome', { ascending: true })
 
-  // Buscar APENAS cargos com subarea_id (vínculo com áreas-cargos)
-  // Cargos sem subarea_id não são válidos conforme sistema de áreas-cargos
+  // Buscar todos os cargos (serão filtrados por subarea_id em áreas-cargos)
   const { data: cargos } = await supabase
     .from('cargos')
     .select('id, nome, nivel, subarea_id')
-    .not('subarea_id', 'is', null)
     .order('nivel', { ascending: true })
 
   // Buscar todos os diagramas BPMN

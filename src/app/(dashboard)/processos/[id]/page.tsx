@@ -28,7 +28,7 @@ export default async function ProcessoDetalhePage({
     notFound()
   }
 
-  // Buscar todos os cargos para edição (com subarea_id da página áreas-cargos)
+  // Buscar todos os cargos (serão filtrados por subarea_id em áreas-cargos)
   const { data: cargos } = await supabase
     .from('cargos')
     .select('id, nome, nivel, subarea_id')
