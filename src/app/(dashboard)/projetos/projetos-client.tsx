@@ -146,6 +146,14 @@ export function ProjetosClient({ projetos: initialProjetos, pessoas }: ProjetosC
     atrasados: projetos.filter(p => p.status === 'atrasado').length
   }
 
+  // Últimos projetos concluídos (histórico)
+  const ultimosConcluidos = useMemo(() => {
+    return projetos
+      .filter(p => p.status === 'concluido')
+      .sort((a, b) => new Date(b.criado_em).getTime() - new Date(a.criado_em).getTime())
+      .slice(0, 3)
+  }, [projetos])
+
   return (
     <main className="min-h-screen bg-bg-page">
       <div className="p-4 sm:p-6">
@@ -189,6 +197,42 @@ export function ProjetosClient({ projetos: initialProjetos, pessoas }: ProjetosC
               <div className="text-sm text-red-600">Atrasados</div>
             </div>
           </div>
+
+          {/* Histórico de projetos concluídos */}
+          {ultimosConcluidos.length > 0 && (
+            <div className="mt-6 p-4 bg-gray-50 rounded-xl">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-medium text-text-secondary flex items-center gap-2">
+                  <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Últimos concluídos
+                </h3>
+                {stats.concluidos > 3 && (
+                  <button
+                    onClick={() => setFiltroStatus('concluido')}
+                    className="text-xs text-accent-600 hover:text-accent-700 font-medium"
+                  >
+                    Ver todos ({stats.concluidos})
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {ultimosConcluidos.map(projeto => (
+                  <button
+                    key={projeto.id}
+                    onClick={() => handleView(projeto)}
+                    className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 hover:border-green-300 hover:bg-green-50 transition-colors text-left"
+                  >
+                    <svg className="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-sm text-text-primary truncate max-w-[150px]">{projeto.nome}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Filtros */}
           <div className="flex gap-2 mt-6 flex-wrap items-center">
